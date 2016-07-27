@@ -17,6 +17,14 @@ const usersSchema = new Schema({
 
 })
 
+const drawingSchema = new Schema({
+	title: { type: String, required: true },
+	boxVals: { type: Array, default: [] },
+	likes: { type: [String], default: [] },
+	date: { type: Date, default: Date.now }
+})
+
 module.exports = {
-  User: createModel('User', usersSchema)
+  User: createModel('User', usersSchema),
+  Drawing: createModel('Drawing', drawingSchema)
 }

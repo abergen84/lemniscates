@@ -4,7 +4,48 @@
 }
 
 h1 {
-	font-size: 300px;
+	font-size: 40px;
 	text-align: center;
-	color: fuchsia;
+	color: black;
+}
+
+#canvas {
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+	
+	.row {
+		position: relative;
+		width: 100%;
+		overflow: auto;
+		&:last-child {
+			.box {
+				border-width: 1px 0 1px 1px;
+				&:last-child {
+					border-width: 1px 1px 1px 1px;
+				}
+			}
+		}
+	}
+
+	.box {
+		float: left;
+		width: 1%;
+		border: 1px solid black;
+		border-width: 1px 0 0 1px;
+		&:last-child {
+			border-width: 1px 1px 0 1px;
+		}
+		&:after{
+			content:'';
+			padding-top: 100%; 
+			display: block;
+		}
+	}
+	.black {
+		background: black;
+	}
+	.green {
+		background: green;
+	}
 }

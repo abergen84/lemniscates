@@ -40,6 +40,75 @@ let User = require('../db/schema.js').User
       })  
     })
 
+    apiRouter
+      .post('/drawing', function(request, response){
+        let newDrawing = new Drawing(request.body)
+        newDrawing.save(function(error){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          } else {
+            response.json(newDrawing)
+          }
+        })
+      })
+      .get('/drawing', function(request, response){
+        Drawing.find(request.query, function(error, results){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          } else {
+            console.log(results)
+            response.json(results)
+          }
+        })
+      })
+
+    apiRouter
+      .get('/drawing/:_id', function(request, response){
+        Drawing.findOne({_id: request.params._id}, function(error, results){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          } else {
+            console.log(results)
+            response.json(results)
+          }
+        })
+      })
+      .put('/drawing/:_id', function(request, response){
+        Drawing.findByIdAndUpdate(request.params._id, request.body, function(error, results){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          } else {
+            console.log(results)
+            response.json(results)
+          }
+        })
+      })
+      .delete('/drawing/:_id', function(request, response){
+        Drawing.remove({_id: request.params._id}, function(error, results){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          } else {
+            console.log(results)
+            response.json(results)
+          }
+        })
+      })
+
     // Routes for a Model(resource) should have this structure
 
 
