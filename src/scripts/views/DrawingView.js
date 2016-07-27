@@ -5,27 +5,40 @@ import ACTIONS from '../actions.js'
 import Header from './Header.js'
 
 const DrawingView = React.createClass({
-	
+
+	selected: Array(2000).fill('white'),
+
 	getInitialState: function(){
 		return {
-			selected: Array(2000).fill(false)
+			painting: false,
+			currentPaintingColor: 'black'
 		}
 	},
 
 	componentWillMount(){
-		Backbone.Events.on('paint', (i) => {
-			this.setState({
-				selected: this.state.selected.slice(0,i).concat([true]).concat(this.state.selected.slice(i+1))
-			})
+
+		Backbone.Events.on('paint',(boxFillObj) => {
+			this.selected[boxFillObj.i] = boxFillObj.color  //why did it work when boxFillObj.fill was used?
+			console.log(boxFillObj.i)
+		})
+
+		Backbone.Events.on('modifyAppState', (stateObj)=>{
+			this.setState(stateObj)
 		})
 	},
 
+
 	render: function(){
 		// console.log(this.state.selected.length)
+		console.log(this.state.painting)
 		return (
 			<div id="drawingView">
 				<Header />
-				<DrawingCanvas totalLength={this.state.selected.length} boxValues={this.state.selected} />
+				<DrawingCanvas 
+					totalLength={this.selected.length} 
+					boxValues={this.selected} 
+					painting={this.state.painting} 
+					currentPaintingColor={this.state.currentPaintingColor} />
 				<Toolbox />
 				<SaveFeature />
 			</div>
@@ -35,40 +48,40 @@ const DrawingView = React.createClass({
 
 const DrawingCanvas = React.createClass({
 
-	// getInitialState() {
-	// 	return {
-	// 		rows: this.props.totalLength/100
-	// 	}
-	// },
+	_togglePainting: function(){
+		console.log('PAINTING!!')
+		let stateObj = {}
 
-	// _populateRows: function(){
-	// 	Array(this.state.rows).fill(true).map((x) => { 
-	// 	<Row totalLength={this.props.totalLength} selected={this.props.boxValues} />
-	// 	// console.log(x)
-	// 	})
-	// },
+		if(!this.props.painting){
+			stateObj.painting = true
+			
+		}  else {
+			stateObj.painting = false
 
-	// render: function(){
-	// 	return (
-	// 		<div id="canvas">
-	// 			{
-	// 				this._populateRows()
-	// 			}
-	// 		</div>
-	// 	)
-	// }
+		}
+
+		Backbone.Events.trigger("modifyAppState", stateObj)
+
+			
+		// console.log(this.state.painting)
+	},
+
 
 	_populateRows: function(){
 		var rowsArray = []
 		for(var i = 50; i <= this.props.totalLength; i+=50){
-			rowsArray.push(<Row selected={this.props.boxValues} columnRange={[i-50,i]} key={i} />)
+			rowsArray.push(<Row selected={this.props.boxValues} 
+				boxValues={this.props.boxValues.slice(i-50,i)} 
+				key={i}
+				painting={this.props.painting}
+				currentPaintingColor={this.props.currentPaintingColor} />)
 		}
 		return rowsArray
 	},
 
 	render: function(){
 		return (
-			<div id="canvas">
+			<div id="canvas" onClick={this._togglePainting} >
 				{this._populateRows()}
 			</div>
 			)
@@ -77,44 +90,16 @@ const DrawingCanvas = React.createClass({
 
 const Row = React.createClass({
 
-	// getInitialState() {
-	// 	return {
-	// 		cols: this.props.totalLength/50
-	// 	}
-	// },
-
-	// _populateBoxes: function(){
-	// 	Array(this.state.cols).fill(true).map((x,i) => {
-	// 		<Box selected={this.props.selected[i]} /> 
-	// 		console.log(x)
-	// 	})
-
-	// },
-
-	// render: function(){
-	// 	// console.log(this.props.selected)
-	// 	return (
-	// 		<div className="row">
-	// 		{
-	// 			this._populateBoxes()	
-	// 		}
-	// 		</div>
-	// 		)
-	// }
-
 	_createBoxes: function(){
-		var columnBoxes = []
-		for(var i = this.props.columnRange[0]; i < this.props.columnRange[1]; i++){
-			var columnBox = <Box selected={this.props.selected[i]} myIndex={i} key={i} />
-			// console.log(this.props.selected)
-			columnBoxes.push(columnBox)
-		}
-		return columnBoxes
-
+		return this.props.boxValues.map((val,i) => <Box 
+			selected={this.props.boxValues[i]} 
+			myIndex={i} 
+			key={i}
+			painting={this.props.painting}
+			currentPaintingColor={this.props.currentPaintingColor} />)
 	},
 
 	render: function(){
-		// console.log(this.props.boxes)
 		return (
 			<div className="row">
 				{this._createBoxes()}
@@ -124,23 +109,32 @@ const Row = React.createClass({
 })
 
 const Box = React.createClass({
+
+	getInitialState: function() {
+		return {
+			fill: '#fff'
+		}
+	},
 	
 	_colorBox: function() {
-		Backbone.Events.trigger('paint', this.props.myIndex)
+		if (this.props.painting) {
+			this.setState({
+				fill: this.props.currentPaintingColor //if painting, this needs to be this.props.currentPaintingColor
+			})
+			Backbone.Events.trigger('paint', {
+				i: this.props.myIndex,
+				color: this.state.fill
+			})			
+		}
 	},
 
 	render: function(){
-		// console.log(this.props.myIndex)
-		var active = "box"
-		if(this.props.selected){
-			active = "box black"
-		} 
-		Backbone.Events.on('changeGreen', function(value){
-			active = "box " + value
-			// console.log(active)
-		})
+
+		let styleObj = {
+			background: this.state.fill
+		}
 		return (
-			<div className={active} onMouseEnter={this._colorBox} >
+			<div style={styleObj} className="box" onMouseEnter={this._colorBox} >
 			</div>
 			)
 	}
@@ -148,17 +142,47 @@ const Box = React.createClass({
 
 const Toolbox = React.createClass({
 	
-	_changeColor: function(event){
-		event.preventDefault()
-		console.log(event.currentTarget.value)
-		Backbone.Events.trigger('changeGreen', event.currentTarget.value)
-	},
-
 	render: function(){
 		return (
 			<div id="toolbox">
-				<button onClick={this._changeColor} value="green">green</button>
+				{ ["#000000", //black 
+				"#26A65B", // green (Eucalyptus)
+				"#19B5FE", // blue (Dodger Blue)
+				"#F22613", // red (Pomegranate)
+				"#F9BF3B", // yellow (Saffron)
+				"#F9690E", // orange (Ectasy)
+				"#9A12B3", // purple (Seance)
+				"#BFBFBF", // silver (Silver)
+				"#FFFFFF"].map((colorVal)=>{return <PaletteColor bgColor={colorVal}/>}) }
 			</div>
+			)
+	}
+})
+
+const PaletteColor = React.createClass({
+
+	_changeColor: function(event){
+		event.preventDefault()
+		console.log(event.currentTarget.dataset)
+		console.log(event.currentTarget.dataset.colorval) // 'data-' can be accessed via dataset on currentTarget
+		Backbone.Events.trigger('modifyAppState', 
+			{currentPaintingColor: event.currentTarget.dataset.colorval})
+	},
+
+	render: function(){
+		let palletteStyle = {
+			margin: "4px 4px", 
+			width: '30px', 
+			height: '30px', 
+			borderRadius: "50%", 
+			border: "1px solid black",
+			display: 'inline-block', 
+			background: this.props.bgColor
+		}
+		return (
+			<span onClick={this._changeColor} 
+			data-colorval={this.props.bgColor} 
+			style={palletteStyle}></span>
 			)
 	}
 })
