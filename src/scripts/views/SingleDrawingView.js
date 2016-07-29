@@ -27,6 +27,10 @@ const SingleDrawingView = React.createClass({
 		})
 	},
 
+	componentWillUnmount(){
+		STORE.off('updateContent')
+	},
+
 	render(){
 		return (
 			<div id="singleDrawingView">

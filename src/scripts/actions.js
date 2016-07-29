@@ -2,6 +2,7 @@ import Backbone from 'backbone'
 import {User} from './models/models.js'
 import {DrawingModel, DrawingCollection} from './models/models.js'
 import STORE from './store.js'
+import toastr from 'toastr'
 
 
 const ACTIONS = {
@@ -19,11 +20,11 @@ const ACTIONS = {
 	logInUser: function(email,password){
 		User.login(email,password).then(function(responseData){
 			console.log(responseData)
-			alert('Logged in!')
+			toastr.info(`user ${email} logged in!`)
 			location.hash = "home"
 		}, function(error){
 			console.log(error)
-			alert('Error logging in')
+			toastr.info("error logging in.")
 		})
 	},
 

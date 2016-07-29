@@ -13,6 +13,7 @@ const app = function() {
   var Router = Backbone.Router.extend({
   	routes: {
   		"drawing/detail/:id":"viewDrawing",
+  		"profile":"goProfile",
   		"drawing/archive":"goArchive",
   		"drawing/create":"createDrawing",
   		"login":"goLogin",
@@ -56,6 +57,10 @@ const app = function() {
   	viewDrawing: function(id){
   		console.log('routing view drawing')
   		ReactDOM.render(<SingleDrawingView id={id} />, document.querySelector('.container'))	
+  	},
+
+  	goProfile: function(){
+  		// ReactDOM.render(<ProfileView />, document.querySelector('.container'))		
   	}
 
   })

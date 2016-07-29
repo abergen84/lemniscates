@@ -6,6 +6,7 @@ const Header = React.createClass({
 			<header>
 				<h1>lemniscates</h1>
 				<a href="#drawing/create">Create Your Masterpiece!</a>
+				<a href="#home">Home</a>
 			</header>
 			)
 	}

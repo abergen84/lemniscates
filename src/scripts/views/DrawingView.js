@@ -51,6 +51,9 @@ const DrawingView = React.createClass({
 	render: function(){
 		console.log('hellooooo')
 		console.log(this.state.painting)
+		console.log(typeof this.props.matrix)
+		console.log(this.matrix instanceof Array)
+		console.log(this.matrix)
 		return (
 			<div id="drawingView">
 				<Header />
@@ -233,7 +236,7 @@ const SaveFeature = React.createClass({
 	_saveDrawing: function(e){
 		e.preventDefault()
 		ACTIONS.saveDrawing({
-			user: User.getCurrentUser(),
+			user: User.getCurrentUser().email,
 			title: e.currentTarget.title.value,
 			boxValues: this.props.matrix,
 		})
