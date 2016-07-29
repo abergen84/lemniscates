@@ -11,6 +11,7 @@ import DrawingView from './views/DrawingView.js'
 const app = function() {
   var Router = Backbone.Router.extend({
   	routes: {
+  		"drawing/detail/:id":"viewDrawing",
   		"drawing/archive":"goArchive",
   		"drawing/create":"createDrawing",
   		"login":"goLogin",
@@ -19,12 +20,12 @@ const app = function() {
   	},
 
   	initialize: function(){
-  		Backbone.history.start()
   		this.on('route', function(handlerName){ //handlerName is the route (could be any of the above)
   			if(!User.getCurrentUser()){  //idea is to re-route to the login page should the user NOT be logged in.
   				location.hash = "login"
   			}
   		})
+  		Backbone.history.start()
   	},
 
   	routeHome: function(){
@@ -36,15 +37,23 @@ const app = function() {
   	},
 
   	goHome: function(){
+  		console.log('routing home')
   		ReactDOM.render(<DashboardView />, document.querySelector('.container'))
   	},
 
   	createDrawing: function(){
+  		console.log('firing')
   		ReactDOM.render(<DrawingView />, document.querySelector('.container'))
   	},
 
   	goArchive: function(){
+  		console.log('routing archive')
   		// ReactDOM.render(<ArchiveView />, document.querySelector('.container'))
+  	},
+
+  	viewDrawing: function(){
+  		console.log('routing view drawing')
+  		// ReactDOM.render(<SingleDrawingView />, document.querySelector('.container'))	
   	}
 
   })

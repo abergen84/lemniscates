@@ -2,6 +2,17 @@ import Backbone from 'backbone'
 import $ from 'jquery'
 import {app_name} from '../app'
 
+const DrawingModel = Backbone.Model.extend({
+	urlRoot: '/api/drawing',
+	idAttribute: '_id'
+})
+
+const DrawingCollection = Backbone.Collection.extend({
+	Model: DrawingModel,
+	urlRoot: '/api/drawing'
+})
+
+
 // ..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x
 const UserAuthModel = Backbone.Model.extend({
 	urlRoot: '/api/users',
@@ -64,4 +75,4 @@ const User = UserAuthModel.extend({
 	}
 })
 
-export { User }
+export { User, DrawingModel, DrawingCollection }
