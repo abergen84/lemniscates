@@ -25,12 +25,12 @@ const DrawingView = React.createClass({
 				j = boxFillObj.colIndex
 
 			this.matrix[i][j] = boxFillObj.fill
-			console.log(this.matrix)
+			// console.log(this.matrix)
 			// console.log(this.matrix[boxFillObj.i])
 			// console.log(this.matrix)
-			console.log('row >>',boxFillObj.rowIndex,
-						'column >>', boxFillObj.colIndex,
-						'color >>', boxFillObj.fill)
+			// console.log('row >>',boxFillObj.rowIndex,
+			// 			'column >>', boxFillObj.colIndex,
+			// 			'color >>', boxFillObj.fill)
 		})
 
 		Backbone.Events.on('modifyAppState', (stateObj)=>{
@@ -149,10 +149,10 @@ const Box = React.createClass({
 			this.setState({
 				fill: this.props.currentPaintingColor //if painting, this needs to be this.props.currentPaintingColor
 			})
-			console.log([this.props.rowIndex, this.props.colIndex])
-			console.log(this.props.fill)
-			console.log(this.props.rowArray[this.props.rowIndex])
-			console.log(this.props.colIndex)
+			// console.log([this.props.rowIndex, this.props.colIndex])
+			// console.log(this.props.fill)
+			// console.log(this.props.rowArray[this.props.rowIndex])
+			// console.log(this.props.colIndex)
 			Backbone.Events.trigger('paint', {
 				rowIndex: this.props.rowIndex, 
 				colIndex: this.props.colIndex,
@@ -202,10 +202,12 @@ const PaletteColor = React.createClass({
 
 	_changeColor: function(event){
 		event.preventDefault()
-		console.log(event.currentTarget.dataset)
-		console.log(event.currentTarget.dataset.colorval) // 'data-' can be accessed via dataset on currentTarget
+		// console.log(event.currentTarget.dataset)
+		// console.log(event.currentTarget.dataset.colorval) // 'data-' can be accessed via dataset on currentTarget
 		Backbone.Events.trigger('modifyAppState', 
-			{currentPaintingColor: event.currentTarget.dataset.colorval})
+			{
+				currentPaintingColor: event.currentTarget.dataset.colorval
+			})
 	},
 
 	render: function(){
@@ -231,6 +233,7 @@ const SaveFeature = React.createClass({
 	_saveDrawing: function(e){
 		e.preventDefault()
 		ACTIONS.saveDrawing({
+			user: User.getCurrentUser(),
 			title: e.currentTarget.title.value,
 			boxValues: this.props.matrix,
 		})

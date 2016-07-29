@@ -12,7 +12,9 @@ const DashboardView = React.createClass({
 	},
 
 	componentWillMount: function(){
-		ACTIONS.fetchDrawings()
+		ACTIONS.fetchDrawings({
+			url: '/api/drawing/'
+		})
 		STORE.on('updateContent', ()=> {
 			this.setState(
 			STORE.getData()
@@ -70,10 +72,15 @@ const DrawingListing = React.createClass({
 })
 
 const Drawing = React.createClass({
+	
+	_goToDrawing: function(){
+		location.hash = `drawing/detail/${this.props.drawModel.get('_id')}`
+	},
+
 	render: function(){
 		return (
 			<div className="drawing">
-				<h5>{this.props.drawModel.get('title')}</h5>
+				<h5 onClick={this._goToDrawing} >{this.props.drawModel.get('title')}</h5>
 			</div>
 			)
 	}

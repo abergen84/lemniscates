@@ -3,12 +3,14 @@ import Backbone from 'backbone'
 import init from './init'
 import {User} from './models/models.js'
 import {DrawingCollection} from './models/models.js'
+import {DrawingModel} from './models/models.js'
 import _ from 'underscore'
 
 const STORE = _.extend(Backbone.Events, {
 
 	data: {
-		drawingCollection: new DrawingCollection()
+		drawingCollection: new DrawingCollection(),
+		drawingModel: new DrawingModel()
 	},
 
 	getData: function(){
@@ -21,6 +23,7 @@ const STORE = _.extend(Backbone.Events, {
 
 	initialize: function(){
 		this.data.drawingCollection.on('sync update', this.emitChange.bind(this))
+		this.data.drawingModel.on('sync update', this.emitChange.bind(this))
 	}
 })
 

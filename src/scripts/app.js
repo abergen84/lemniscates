@@ -6,6 +6,7 @@ import {User} from './models/models.js'
 import LoginView from './views/LoginView.js'
 import DashboardView from './views/DashboardView.js'
 import DrawingView from './views/DrawingView.js'
+import SingleDrawingView from './views/SingleDrawingView.js'
 
 
 const app = function() {
@@ -33,6 +34,7 @@ const app = function() {
   	},
 
   	goLogin: function(){
+  		console.log('routing login')
   		ReactDOM.render(<LoginView />, document.querySelector('.container'))
   	},
 
@@ -42,7 +44,7 @@ const app = function() {
   	},
 
   	createDrawing: function(){
-  		console.log('firing')
+  		console.log('routing create drawing')
   		ReactDOM.render(<DrawingView />, document.querySelector('.container'))
   	},
 
@@ -51,9 +53,9 @@ const app = function() {
   		// ReactDOM.render(<ArchiveView />, document.querySelector('.container'))
   	},
 
-  	viewDrawing: function(){
+  	viewDrawing: function(id){
   		console.log('routing view drawing')
-  		// ReactDOM.render(<SingleDrawingView />, document.querySelector('.container'))	
+  		ReactDOM.render(<SingleDrawingView id={id} />, document.querySelector('.container'))	
   	}
 
   })

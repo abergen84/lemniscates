@@ -18,8 +18,9 @@ const usersSchema = new Schema({
 })
 
 const drawingSchema = new Schema({
+  user: {type: String, required: true},
 	title: { type: String, required: true },
-	boxValues: { type: Array, default: [] },
+	boxValues: { type: [Array], default: [] },
 	likes: { type: [String], default: [] },
 	date: { type: Date, default: Date.now }
 })

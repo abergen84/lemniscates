@@ -4,7 +4,10 @@ import {app_name} from '../app'
 
 const DrawingModel = Backbone.Model.extend({
 	urlRoot: '/api/drawing',
-	idAttribute: '_id'
+	idAttribute: '_id',
+	defaults: {
+		boxValues: []
+	}
 })
 
 const DrawingCollection = Backbone.Collection.extend({

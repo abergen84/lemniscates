@@ -1,6 +1,6 @@
 import Backbone from 'backbone'
 import {User} from './models/models.js'
-import {DrawingModel,DrawingCollection} from './models/models.js'
+import {DrawingModel, DrawingCollection} from './models/models.js'
 import STORE from './store.js'
 
 
@@ -44,11 +44,15 @@ const ACTIONS = {
 	},
 
 	fetchDrawings: function(queryObj){
-		STORE.data.drawingCollection.fetch({
-			data: queryObj,
-			url: '/api/drawing/'
-		})
+		STORE.data.drawingCollection.fetch(queryObj)
 	},
+
+	fetchOneDrawing: function(queryObj){
+		STORE.data.drawingModel.fetch(queryObj)
+		.then(function(responseData){
+			console.log(responseData)
+		})
+	}
 
 
 
