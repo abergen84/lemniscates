@@ -46,6 +46,9 @@ const ACTIONS = {
 
 	fetchDrawings: function(queryObj){
 		STORE.data.drawingCollection.fetch(queryObj)
+		.then(function(responseData){
+			console.log(responseData)
+		})
 	},
 
 	fetchOneDrawing: function(queryObj){
@@ -53,6 +56,24 @@ const ACTIONS = {
 		.then(function(responseData){
 			console.log(responseData)
 		})
+	},
+
+	clearDrawingModel: function(){
+		STORE.data.drawingModel.clear()
+		STORE.data.drawingModel.set(STORE.data.drawingModel.defaults)
+		// console.log(STORE.data.drawingModel.defaults)
+	},
+
+	addLike: function(drawing, user){
+		console.log('this is adding like')
+		console.log(drawing)
+		if(drawing.get('likes').indexOf(user._id) < 0){
+			drawing.set({
+				likes: drawing.get('likes').concat(user._id)
+			})
+			drawing.save()
+			.then(()=> STORE.data.drawingModel.fetch())
+		}
 	}
 
 

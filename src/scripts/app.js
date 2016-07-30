@@ -7,6 +7,7 @@ import LoginView from './views/LoginView.js'
 import DashboardView from './views/DashboardView.js'
 import DrawingView from './views/DrawingView.js'
 import SingleDrawingView from './views/SingleDrawingView.js'
+import ProfileView from './views/ProfileView.js'
 
 
 const app = function() {
@@ -60,7 +61,7 @@ const app = function() {
   	},
 
   	goProfile: function(){
-  		// ReactDOM.render(<ProfileView />, document.querySelector('.container'))		
+  		ReactDOM.render(<ProfileView />, document.querySelector('.container'))		
   	}
 
   })

@@ -6,13 +6,14 @@ const DrawingModel = Backbone.Model.extend({
 	urlRoot: '/api/drawing',
 	idAttribute: '_id',
 	defaults: {
-		boxValues: []
-	}
-})
+		boxValues: [],
+		likes: []  //need this here so that React can go ahead and populate the rows and columns before the 
+	}					//data comes back. See SingleDrawingView -> DrawingListing -> populateRows. the value of
+})						//this.props.matrix hasnt come back yet before react wants to render it, so have to put default
 
 const DrawingCollection = Backbone.Collection.extend({
 	Model: DrawingModel,
-	urlRoot: '/api/drawing'
+	urlRoot: '/api/drawings'
 })
 
 

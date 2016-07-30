@@ -13,9 +13,9 @@ const SingleDrawingView = React.createClass({
 
 	componentWillMount(){
 		// console.log(this.matrix)
-		console.log(this.props.id)
-		console.log(this.state)
-		console.log(this.state.drawingModel)
+		// console.log(this.props.id)
+		// console.log(this.state)
+		// console.log(this.state.drawingModel)
 		ACTIONS.fetchOneDrawing({
 			url: '/api/drawing/' + this.props.id
 		})
@@ -29,13 +29,16 @@ const SingleDrawingView = React.createClass({
 
 	componentWillUnmount(){
 		STORE.off('updateContent')
+		ACTIONS.clearDrawingModel()
 	},
 
 	render(){
 		return (
 			<div id="singleDrawingView">
 				<Header />
+				<h2>{this.state.drawingModel.get('title')}</h2>
 				<DrawingListing matrix={this.state.drawingModel} />
+				<UserInteraction drawingModel={this.state.drawingModel} />
 			</div>
 			)
 	}
@@ -44,10 +47,10 @@ const SingleDrawingView = React.createClass({
 const DrawingListing = React.createClass({
 	
 	_populateRows: function(){
-		console.log(this.props.matrix)
-		return this.props.matrix.get('boxValues').map((rowArray,i) =>
-			<Row 
-				rowArray={rowArray}
+		// console.log(this.props.matrix)
+		return this.props.matrix.get('boxValues').map((rowArray,i) => //values arent back yet so it cant map, thus on drawing 
+			<Row 													//model we put a default array so it can continue before
+				rowArray={rowArray}									//data fetches
 				rowIndex={i}
 				key={i} />)
 	},
@@ -92,6 +95,24 @@ const Box = React.createClass({
 
 		return (
 			<div className="box" style={fillStyle}>
+			</div>
+			)
+	}
+})
+
+const UserInteraction = React.createClass({
+	
+	_handleLike(){
+		console.log('like button pressed')
+		ACTIONS.addLike(this.props.drawingModel,User.getCurrentUser())
+	},
+
+	render(){
+		console.log(this.props.drawingModel)
+		return (
+			<div id="userInteraction">
+				<button onClick={this._handleLike} >Like this</button>
+				<span>{this.props.drawingModel.get('likes').length}</span>
 			</div>
 			)
 	}

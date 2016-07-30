@@ -18,11 +18,11 @@ const usersSchema = new Schema({
 })
 
 const drawingSchema = new Schema({
-  user: { type: String, required: true },
 	title: { type: String, required: true },
 	boxValues: { type: Array, default: [] },
 	likes: { type: [String], default: [] },
-	date: { type: Date, default: Date.now }
+	date: { type: Date, default: Date.now },
+  user_email: { type: String, required: true }
 })
 
 module.exports = {

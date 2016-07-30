@@ -41,6 +41,7 @@ let Drawing = require('../db/schema.js').Drawing
       })  
     })
 
+    //Creating a Drawing
     apiRouter
       .post('/drawing', function(request, response){
         let newDrawing = new Drawing(request.body)
@@ -55,7 +56,9 @@ let Drawing = require('../db/schema.js').Drawing
           }
         })
       })
-      .get('/drawing', function(request, response){
+
+      //Fetching all drawings
+      .get('/drawings', function(request, response){
         Drawing.find(request.query, function(error, results){
           if(error){
             console.log(error)
@@ -69,6 +72,25 @@ let Drawing = require('../db/schema.js').Drawing
         })
       })
 
+    //Get all drawings associated with an account
+    apiRouter.get('/myDrawings', function(request, response){
+      if(request.user){
+        Drawing.find({user_email: request.user.email}, function(error,results){
+          if(error){
+            console.log(error)
+            response.json({
+              error: error
+            })
+          }
+          else {
+            console.log(results)
+            response.json(results)
+          }
+        })
+      }
+    })
+
+    //Get an individual drawing
     apiRouter
       .get('/drawing/:_id', function(request, response){
         Drawing.findOne({_id: request.params._id}, function(error, results){
@@ -83,6 +105,7 @@ let Drawing = require('../db/schema.js').Drawing
           }
         })
       })
+      //Update a drawing (TBD)
       .put('/drawing/:_id', function(request, response){
         Drawing.findByIdAndUpdate(request.params._id, request.body, function(error, results){
           if(error){
@@ -96,6 +119,8 @@ let Drawing = require('../db/schema.js').Drawing
           }
         })
       })
+
+      //Deleting a drawing
       .delete('/drawing/:_id', function(request, response){
         Drawing.remove({_id: request.params._id}, function(error, results){
           if(error){
@@ -109,8 +134,5 @@ let Drawing = require('../db/schema.js').Drawing
           }
         })
       })
-
-    // Routes for a Model(resource) should have this structure
-
 
 module.exports = apiRouter

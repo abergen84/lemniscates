@@ -20,26 +20,19 @@ const DrawingView = React.createClass({
 		window.matrix = this.matrix
 		//this listener will pick up on the paint color on the Box component, placing it on the 
 		//matrix: Array(2000) at the top of this component for its fill color
-		Backbone.Events.on('paint',(boxFillObj) => {
-			let i = boxFillObj.rowIndex,
-				j = boxFillObj.colIndex
+		Backbone.Events.on('paint',(boxFillObj) => {     //put this on the store.js
+			let row = boxFillObj.rowIndex,
+				col = boxFillObj.colIndex
 
-			this.matrix[i][j] = boxFillObj.fill
+			this.matrix[row][col] = boxFillObj.fill
 			// console.log(this.matrix)
 			// console.log(this.matrix[boxFillObj.i])
 			// console.log(this.matrix)
-			// console.log('row >>',boxFillObj.rowIndex,
-			// 			'column >>', boxFillObj.colIndex,
-			// 			'color >>', boxFillObj.fill)
 		})
 
 		Backbone.Events.on('modifyAppState', (stateObj)=>{
 			this.setState(stateObj)
 		})
-
-		// Backbone.Events.on('resetCanvas', (value)=> {
-		// 	this.matrix = new Array(2000).fill(value)
-		// })
 	},
 
 	componentWillUnmount: function(){
@@ -85,16 +78,9 @@ const DrawingCanvas = React.createClass({
 
 		Backbone.Events.trigger("modifyAppState", stateObj)
 
-			
-		// console.log(this.state.painting)
 	},
 
-
 	_populateRows: function(){
-
-		// console.log(this.props.matrix)
-		// console.log(this.props.matrix.length)
-
 		return this.props.matrix.map((rowArray,i) =>
 			<Row 
 				rowArray={rowArray}
@@ -105,8 +91,6 @@ const DrawingCanvas = React.createClass({
 	},
 
 	render: function(){
-		// console.log(this.props.rowArray)
-		// console.log(this.props.rowIndex)
 		return (
 			<div id="canvas" onClick={this._togglePainting} >
 				{this._populateRows()}
@@ -129,8 +113,6 @@ const Row = React.createClass({
 	},
 
 	render: function(){
-		// console.log('rendering a row')
-		// console.log(this.props.fill)
 		return (
 			<div className="row">
 				{this._createBoxes()}
@@ -150,22 +132,17 @@ const Box = React.createClass({
 	_colorBox: function() {
 		if (this.props.painting) {
 			this.setState({
-				fill: this.props.currentPaintingColor //if painting, this needs to be this.props.currentPaintingColor
+				fill: this.props.currentPaintingColor
 			})
-			// console.log([this.props.rowIndex, this.props.colIndex])
-			// console.log(this.props.fill)
-			// console.log(this.props.rowArray[this.props.rowIndex])
-			// console.log(this.props.colIndex)
-			Backbone.Events.trigger('paint', {
+			Backbone.Events.trigger('paint', {    //put this on actions.js
 				rowIndex: this.props.rowIndex, 
 				colIndex: this.props.colIndex,
-				fill: this.props.currentPaintingColor  //this was originally fill: this.state.fill. why does that
-			})											// not work here?
+				fill: this.props.currentPaintingColor 
+			})
 		}
 	},
 
 	render: function(){
-
 		let styleObj = {
 			background: this.state.fill
 		}
@@ -205,7 +182,6 @@ const PaletteColor = React.createClass({
 
 	_changeColor: function(event){
 		event.preventDefault()
-		// console.log(event.currentTarget.dataset)
 		// console.log(event.currentTarget.dataset.colorval) // 'data-' can be accessed via dataset on currentTarget
 		Backbone.Events.trigger('modifyAppState', 
 			{
@@ -235,10 +211,11 @@ const SaveFeature = React.createClass({
 	
 	_saveDrawing: function(e){
 		e.preventDefault()
+		console.log(User.getCurrentUser().email)
 		ACTIONS.saveDrawing({
-			user: User.getCurrentUser().email,
 			title: e.currentTarget.title.value,
 			boxValues: this.props.matrix,
+			user_email: User.getCurrentUser().email,
 		})
 	},
 

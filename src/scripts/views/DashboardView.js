@@ -13,7 +13,7 @@ const DashboardView = React.createClass({
 
 	componentWillMount: function(){
 		ACTIONS.fetchDrawings({
-			url: '/api/drawing/'
+			url: '/api/drawings/'
 		})
 		STORE.on('updateContent', ()=> {
 			this.setState(
