@@ -4,6 +4,7 @@ import {User} from '../models/models.js'
 import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import STORE from '../store.js'
+import toastr from 'toastr'
 
 const SingleDrawingView = React.createClass({
 
@@ -37,6 +38,7 @@ const SingleDrawingView = React.createClass({
 			<div id="singleDrawingView">
 				<Header />
 				<h2>{this.state.drawingModel.get('title')}</h2>
+				<p>by {User.getCurrentUser().name}</p>
 				<DrawingListing matrix={this.state.drawingModel} />
 				<UserInteraction drawingModel={this.state.drawingModel} />
 			</div>
@@ -105,13 +107,20 @@ const UserInteraction = React.createClass({
 	_handleLike(){
 		console.log('like button pressed')
 		ACTIONS.addLike(this.props.drawingModel,User.getCurrentUser())
+		toastr.info('Liked')
+		// setTimeout(()=>{if(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0){
+		// toastr.warning('Already liked this!')
+		// }},500)
 	},
 
 	render(){
-		console.log(this.props.drawingModel)
+		let likeButton = 'Like this'
+		console.log(this.props.drawingModel.get('likes'))
+		console.log(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0)
+		// 	likeButton = 'liked'
 		return (
 			<div id="userInteraction">
-				<button onClick={this._handleLike} >Like this</button>
+				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
 			</div>
 			)

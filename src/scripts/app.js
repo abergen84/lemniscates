@@ -8,7 +8,7 @@ import DashboardView from './views/DashboardView.js'
 import DrawingView from './views/DrawingView.js'
 import SingleDrawingView from './views/SingleDrawingView.js'
 import ProfileView from './views/ProfileView.js'
-
+import ArchiveView from './views/ArchiveView.js'
 
 const app = function() {
   var Router = Backbone.Router.extend({
@@ -52,7 +52,7 @@ const app = function() {
 
   	goArchive: function(){
   		console.log('routing archive')
-  		// ReactDOM.render(<ArchiveView />, document.querySelector('.container'))
+  		ReactDOM.render(<ArchiveView />, document.querySelector('.container'))
   	},
 
   	viewDrawing: function(id){
@@ -61,6 +61,7 @@ const app = function() {
   	},
 
   	goProfile: function(){
+  		console.log('routing profile')
   		ReactDOM.render(<ProfileView />, document.querySelector('.container'))		
   	}
 

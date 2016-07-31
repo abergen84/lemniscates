@@ -11,15 +11,16 @@ const Header = React.createClass({
 	render: function(){
 		let loginName
 		if(User.getCurrentUser()){
-			loginName = User.getCurrentUser().name
+			loginName = `Welcome back ${User.getCurrentUser().name}!`
 		}
 		return (
 			<header>
 				<h1>lemniscates</h1>
 				<p>{loginName}</p>
+				<a href="#home">Home</a>
 				<a href="#profile">Your profile</a>
 				<a href="#drawing/create">Create Your Masterpiece!</a>
-				<a href="#home">Home</a>
+				<a href="#drawing/archive">Archive</a>
 				<a href="#" onClick={this._logOut} >Logout</a>
 			</header>
 			)

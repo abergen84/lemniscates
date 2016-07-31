@@ -90,6 +90,32 @@ let Drawing = require('../db/schema.js').Drawing
       }
     })
 
+    //Get drawings by date
+    var currentDate = new Date()
+    var oneDay = currentDate.setDate(currentDate.getDate()-1)
+    var oneDayAgo = new Date(oneDay).toJSON().slice(0,10)
+    // var twoDaysAgo = currentDate.setDate(currentDate.getDate()-2)
+    // var threeDaysAgo = currentDate.setDate(currentDate.getDate()-3)
+    // var fourDaysAgo = currentDate.setDate(currentDate.getDate()-4)
+    // var fiveDaysAgo = currentDate.setDate(currentDate.getDate()-5)
+    // var sixDaysAgo = currentDate.setDate(currentDate.getDate()-6)
+    // var sevenDaysAgo = currentDate.setDate(currentDate.getDate()-7)
+
+    apiRouter.get('/drawingsByDate', function(request, response){
+      Drawing.find({"$where": "this.date.toJSON().slice(0,10) == this.oneDayAgo"}, function(error, results){
+        if(error){
+          console.log(error)
+          response.json({
+            error: error
+          })
+        }
+        else {
+          console.log(results)
+          response.json(results)
+        }
+      })
+    })
+
     //Get an individual drawing
     apiRouter
       .get('/drawing/:_id', function(request, response){
