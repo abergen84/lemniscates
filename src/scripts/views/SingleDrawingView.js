@@ -59,7 +59,7 @@ const DrawingListing = React.createClass({
 
 	render: function(){
 		return (
-			<div id="canvas" onClick={this._togglePainting} >
+			<div id="canvas">
 				{this._populateRows()}
 			</div>
 			)
