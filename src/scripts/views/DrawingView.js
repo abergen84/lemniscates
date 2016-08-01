@@ -216,6 +216,7 @@ const SaveFeature = React.createClass({
 			title: e.currentTarget.title.value,
 			boxValues: this.props.matrix,
 			user_email: User.getCurrentUser().email,
+			name: User.getCurrentUser().name
 		})
 	},
 

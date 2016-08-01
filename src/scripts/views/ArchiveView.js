@@ -21,6 +21,10 @@ const ArchiveView = React.createClass({
 		})
 	},
 
+	componentWillUnmount(){
+		STORE.off('updateContent')
+	},
+
 	render(){
 		return (
 			<div id="archiveView">

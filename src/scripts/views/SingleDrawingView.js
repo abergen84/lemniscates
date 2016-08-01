@@ -38,7 +38,7 @@ const SingleDrawingView = React.createClass({
 			<div id="singleDrawingView">
 				<Header />
 				<h2>{this.state.drawingModel.get('title')}</h2>
-				<p>by {User.getCurrentUser().name}</p>
+				<p>by {this.state.drawingModel.get('name')}</p>
 				<DrawingListing matrix={this.state.drawingModel} />
 				<UserInteraction drawingModel={this.state.drawingModel} />
 			</div>
@@ -111,6 +111,22 @@ const UserInteraction = React.createClass({
 		// setTimeout(()=>{if(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0){
 		// toastr.warning('Already liked this!')
 		// }},500)
+
+					// html2canvas(document.querySelector('#canvas'), {
+					// 	onrendered: function(canvas){
+					// 		document.body.appendChild(canvas)
+					// 	},
+					// 	width: 300,
+					// 	height: 300
+					// })
+				
+	},
+
+	_handleDelete(){
+		// ACTIONS.deleteDrawing(this.props.drawingModel.get('_id'))
+		ACTIONS.deleteDrawing({
+			url: '/api/drawing/' + this.props.drawingModel.get('_id')
+		})
 	},
 
 	render(){
@@ -118,10 +134,21 @@ const UserInteraction = React.createClass({
 		console.log(this.props.drawingModel.get('likes'))
 		console.log(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0)
 		// 	likeButton = 'liked'
+		let buttonStyle 
+		if(User.getCurrentUser().email == this.props.drawingModel.get('user_email')){
+			buttonStyle = {
+				display: "block"
+			}
+		} else {
+			buttonStyle = {
+				display: "none"
+			}
+		}
 		return (
 			<div id="userInteraction">
 				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
+				<button onClick={this._handleDelete} style={buttonStyle} >Remove</button>
 			</div>
 			)
 	}

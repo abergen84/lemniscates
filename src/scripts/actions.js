@@ -74,6 +74,15 @@ const ACTIONS = {
 			drawing.save()
 			.then(()=> STORE.data.drawingModel.fetch())
 		}
+	},
+
+	deleteDrawing: function(queryObj){
+		console.log('deleting record')
+		// console.log(STORE.data.drawingModel)
+		var deletedDrawing = STORE.data.drawingModel
+		deletedDrawing.destroy(queryObj).then(()=> {
+			return location.hash = "profile"
+		})
 	}
 
 

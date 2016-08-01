@@ -22,7 +22,8 @@ const drawingSchema = new Schema({
 	boxValues: { type: Array, default: [] },
 	likes: { type: [String], default: [] },
 	date: { type: Date, default: Date.now },
-  user_email: { type: String, required: true }
+  user_email: { type: String, required: true },
+  name: {type: String, required: true}
 })
 
 module.exports = {
