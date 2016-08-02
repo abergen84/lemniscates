@@ -83,6 +83,14 @@ const ACTIONS = {
 		deletedDrawing.destroy(queryObj).then(()=> {
 			return location.hash = "profile"
 		})
+	},
+
+	addComment: function(queryObj){
+		var drawing = STORE.data.drawingModel
+		drawing.set(queryObj)
+		drawing.save().then(()=>{
+			drawing.fetch()
+		})
 	}
 
 

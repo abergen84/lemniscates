@@ -23,7 +23,9 @@ const drawingSchema = new Schema({
 	likes: { type: [String], default: [] },
 	date: { type: Date, default: Date.now },
   user_email: { type: String, required: true },
-  name: {type: String, required: true}
+  name: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  comment: { type: [String], default: [] }
 })
 
 module.exports = {

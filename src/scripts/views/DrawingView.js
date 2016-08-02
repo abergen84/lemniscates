@@ -4,6 +4,8 @@ import {User} from '../models/models.js'
 import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import {DrawingModel} from '../models/models.js'
+import $ from 'jquery'
+
 
 const DrawingView = React.createClass({
 
@@ -33,6 +35,12 @@ const DrawingView = React.createClass({
 		Backbone.Events.on('modifyAppState', (stateObj)=>{
 			this.setState(stateObj)
 		})
+
+		// Backbone.Events.on('resetCanvas', ()=> {
+		// 	this.matrix = Array(40).fill(null).map((val) => Array(50).fill('white'))
+		// 	// return this.matrix
+		// 	console.log(this.matrix)
+		// })
 	},
 
 	componentWillUnmount: function(){
@@ -44,9 +52,9 @@ const DrawingView = React.createClass({
 	render: function(){
 		console.log('hellooooo')
 		console.log(this.state.painting)
-		console.log(typeof this.props.matrix)
-		console.log(this.matrix instanceof Array)
-		console.log(this.matrix)
+		// console.log(typeof this.props.matrix)
+		// console.log(this.matrix instanceof Array)
+		// console.log(this.matrix)
 		return (
 			<div id="drawingView">
 				<Header />
@@ -157,7 +165,7 @@ const Toolbox = React.createClass({
 	
 	_resetCanvas: function(){
 		console.log('reset man!')
-		// Backbone.Events.trigger('resetCanvas', 'white')
+		Backbone.Events.trigger('resetCanvas')
 	},
 
 	render: function(){
@@ -208,21 +216,45 @@ const PaletteColor = React.createClass({
 })
 
 const SaveFeature = React.createClass({
+
+	storedTitle: null,
 	
 	_saveDrawing: function(e){
 		e.preventDefault()
+		this.storedTitle = e.currentTarget.title.value
 		console.log(User.getCurrentUser().email)
-		ACTIONS.saveDrawing({
-			title: e.currentTarget.title.value,
-			boxValues: this.props.matrix,
-			user_email: User.getCurrentUser().email,
-			name: User.getCurrentUser().name
+		var self = this
+
+			html2canvas(document.querySelector('#canvas'), {
+			onrendered: function(canvas){
+				var imgData = ''
+				imgData = canvas.toDataURL("image/jpeg", 0.5)
+				// console.log(imgData)
+
+				ACTIONS.saveDrawing({
+				title: self.storedTitle,
+				boxValues: self.props.matrix,
+				user_email: User.getCurrentUser().email,
+				name: User.getCurrentUser().name,
+				imageUrl: imgData
+				})
+			},
+			// logging: true
 		})
+
+			// ACTIONS.saveDrawing({
+			// title: e.currentTarget.title.value,
+			// boxValues: this.props.matrix,
+			// user_email: User.getCurrentUser().email,
+			// name: User.getCurrentUser().name,
+			// imageUrl: imgData
+			// })
 	},
 
 	render: function(){
 		return (
 			<div id="saveBox">
+			{/*<button onClick={this._toCanvas}>make canvas</button>*/}
 			<p>Ready to submit? Warning: no editing once submitted!</p>
 				<form onSubmit={this._saveDrawing}>
 					<input type="text" name="title" placeholder="Name" />

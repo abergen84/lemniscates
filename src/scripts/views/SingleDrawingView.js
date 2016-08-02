@@ -111,21 +111,21 @@ const UserInteraction = React.createClass({
 		// setTimeout(()=>{if(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0){
 		// toastr.warning('Already liked this!')
 		// }},500)
-
-					// html2canvas(document.querySelector('#canvas'), {
-					// 	onrendered: function(canvas){
-					// 		document.body.appendChild(canvas)
-					// 	},
-					// 	width: 300,
-					// 	height: 300
-					// })
-				
 	},
 
 	_handleDelete(){
 		// ACTIONS.deleteDrawing(this.props.drawingModel.get('_id'))
 		ACTIONS.deleteDrawing({
 			url: '/api/drawing/' + this.props.drawingModel.get('_id')
+		})
+	},
+
+	_handleComments(event){
+		event.preventDefault()
+		console.log('test')
+		ACTIONS.addComment({
+			// url: '/api/drawing/' + this.props.drawingModel.get('_id'),
+			comment: event.currentTarget.comment.value
 		})
 	},
 
@@ -149,6 +149,10 @@ const UserInteraction = React.createClass({
 				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
 				<button onClick={this._handleDelete} style={buttonStyle} >Remove</button>
+				<form onSubmit={this._handleComments}>
+					<input type="text" name="comment" placeholder="comment" />
+					<button type="submit">say it</button>
+				</form>
 			</div>
 			)
 	}
