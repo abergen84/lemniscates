@@ -39,7 +39,7 @@ const LastWeek = React.createClass({
 	
 	_handleClick(event){
 		event.preventDefault()
-		console.log(event.target.value)
+		// console.log(event.target.value)
 		var date = new Date()
 		var year = date.getUTCFullYear()
 		var month = date.getUTCMonth() + 1
@@ -47,7 +47,7 @@ const LastWeek = React.createClass({
 		// if(event.target.value === 'yesterday'){
 		var yesterdayDay = date.getUTCDate() - 1
 		// }
-		console.log(date)
+		// console.log(date)
 		var yesterdayDate = `${year}-${month}-${yesterdayDay}`
 		console.log('yesterday', yesterdayDate)
 		var todayDate = `${year}-${month}-${day}`

@@ -13,7 +13,7 @@ const ProfileView = React.createClass({
 
 	componentWillMount(){
 		ACTIONS.fetchDrawings({
-			url: '/api/myDrawings/'
+			user_email: User.getCurrentUser().email
 		})
 		STORE.on('updateContent', ()=> {
 			this.setState(STORE.getData())

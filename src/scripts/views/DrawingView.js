@@ -36,11 +36,13 @@ const DrawingView = React.createClass({
 			this.setState(stateObj)
 		})
 
-		// Backbone.Events.on('resetCanvas', ()=> {
-		// 	this.matrix = Array(40).fill(null).map((val) => Array(50).fill('white'))
-		// 	// return this.matrix
-		// 	console.log(this.matrix)
-		// })
+		Backbone.Events.on('resetCanvas', ()=> {
+			this.matrix = Array(40).fill(null).map((val) => Array(50).fill('white'))
+			// return this.matrix
+			console.log(this.matrix)
+			console.log('forcing update???')
+			this.forceUpdate()
+		})
 	},
 
 	componentWillUnmount: function(){
@@ -71,7 +73,7 @@ const DrawingView = React.createClass({
 })
 
 const DrawingCanvas = React.createClass({
-
+		
 	_togglePainting: function(){
 		console.log('PAINTING!!')
 		let stateObj = {}
