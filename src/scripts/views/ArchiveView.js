@@ -13,9 +13,8 @@ const ArchiveView = React.createClass({
 	},
 
 	componentWillMount(){
-		ACTIONS.fetchDrawings({
-			url: '/api/drawingsByDate'
-		})
+		// _«keyword flag»_«queryTypeName»-«fieldInSchema»
+		ACTIONS.fetchDrawings({})
 		STORE.on('updateContent', ()=>{
 			this.setState(STORE.getData())
 		})
@@ -38,16 +37,32 @@ const ArchiveView = React.createClass({
 
 const LastWeek = React.createClass({
 	
-	// _handleClick(){
-	// 	ACTIONS.fetchDrawings({
-	// 		url: '/api/drawingsByDate'
-	// 	})
-	// },
+	_handleClick(event){
+		event.preventDefault()
+		console.log(event.target.value)
+		var date = new Date()
+		var year = date.getUTCFullYear()
+		var month = date.getUTCMonth() + 1
+		var day = date.getUTCDate()
+		// if(event.target.value === 'yesterday'){
+		var yesterdayDay = date.getUTCDate() - 1
+		// }
+		console.log(date)
+		var yesterdayDate = `${year}-${month}-${yesterdayDay}`
+		console.log('yesterday', yesterdayDate)
+		var todayDate = `${year}-${month}-${day}`
+		console.log('today', todayDate)
+		// _«keyword flag»_«queryTypeName»-«fieldInSchema»
+		ACTIONS.fetchDrawings({
+			'_QRY_dateRange-date': [ yesterdayDate,  todayDate ] //less than date, greater than date
+		})							//'2016-7-31' (format)
+	},
 
 	render(){
 		return (
-			<div id="weekContainer">
-				{/*<a href="#" onClick={this._handleClick }>{yesterday}</a>*/}
+			<div id="winnerContainer">
+				<h2>Previous Winners</h2>
+				<button value="yesterday" onClick={this._handleClick }>yesterday</button>
 			</div>
 			)
 	}
@@ -66,10 +81,16 @@ const DateListings = React.createClass({
 })
 
 const DateListing = React.createClass({
+	
+	_handleClick(){
+		location.hash = 'drawing/detail/' + this.props.model.get('_id')
+	},
+
 	render(){
 		return (
 			<div className="dateListing">
-				<p>{this.props.model.get('title')}</p>
+				<p onClick={this._handleClick} >{this.props.model.get('title')}</p>
+				<img onClick={this._handleClick} src={this.props.model.get('imageUrl')} />
 			</div>
 			)
 	}

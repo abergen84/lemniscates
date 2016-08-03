@@ -100,8 +100,10 @@ const DrawingCanvas = React.createClass({
 
 	render: function(){
 		return (
-			<div id="canvas" onClick={this._togglePainting} >
-				{this._populateRows()}
+			<div id="canvasWrapper">
+				<div id="canvas" onClick={this._togglePainting} >
+					{this._populateRows()}
+				</div>
 			</div>
 			)
 		}
@@ -228,7 +230,7 @@ const SaveFeature = React.createClass({
 			html2canvas(document.querySelector('#canvas'), {
 			onrendered: function(canvas){
 				var imgData = ''
-				imgData = canvas.toDataURL("image/jpeg", 0.5)
+				imgData = canvas.toDataURL("image/jpeg", 0.1)
 				// console.log(imgData)
 
 				ACTIONS.saveDrawing({

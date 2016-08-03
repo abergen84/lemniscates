@@ -13,7 +13,7 @@ const ProfileView = React.createClass({
 
 	componentWillMount(){
 		ACTIONS.fetchDrawings({
-			url: '/api/myDrawings'
+			url: '/api/myDrawings/'
 		})
 		STORE.on('updateContent', ()=> {
 			this.setState(STORE.getData())
@@ -70,6 +70,7 @@ const Drawing = React.createClass({
 		return (
 			<div className="singleDrawing">
 				<p onClick={this._handleClick} >{this.props.yourDrawingModel.get('title')}</p>
+				<img src={this.props.yourDrawingModel.get('imageUrl')} />
 			</div>
 			)
 	}

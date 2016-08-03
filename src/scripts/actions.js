@@ -20,8 +20,12 @@ const ACTIONS = {
 	logInUser: function(email,password){
 		User.login(email,password).then(function(responseData){
 			console.log(responseData)
-			toastr.info(`user ${email} logged in!`)
-			location.hash = "home"
+			if(responseData === undefined) {
+				toastr.warning('please input correct username and password')	
+			} else {
+				toastr.info(`user ${email} logged in!`)
+				location.hash = "home"
+			}
 		}, function(error){
 			console.log(error)
 			toastr.info("error logging in.")
@@ -45,11 +49,20 @@ const ACTIONS = {
 	},
 
 	fetchDrawings: function(queryObj){
-		STORE.data.drawingCollection.fetch(queryObj)
+		STORE.data.drawingCollection.fetch({
+			data: queryObj || {}
+		})
 		.then(function(responseData){
 			console.log(responseData)
 		})
 	},
+
+	// fetchDrawings: function(queryObj){
+	// 	STORE.data.drawingCollection.fetch(queryObj)
+	// 	.then(function(responseData){
+	// 		console.log(responseData)
+	// 	})
+	// },
 
 	fetchOneDrawing: function(queryObj){
 		STORE.data.drawingModel.fetch(queryObj)
@@ -85,13 +98,19 @@ const ACTIONS = {
 		})
 	},
 
-	addComment: function(queryObj){
-		var drawing = STORE.data.drawingModel
-		drawing.set(queryObj)
+	addComment: function(drawing, value){
+		// var drawing = STORE.data.drawingModel
+		drawing.set({
+			comment: drawing.get('comment').concat(value)
+		})
 		drawing.save().then(()=>{
 			drawing.fetch()
 		})
-	}
+	},
+
+	getDate: function(value){
+
+	},
 
 
 

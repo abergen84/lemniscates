@@ -123,16 +123,19 @@ const UserInteraction = React.createClass({
 	_handleComments(event){
 		event.preventDefault()
 		console.log('test')
-		ACTIONS.addComment({
-			// url: '/api/drawing/' + this.props.drawingModel.get('_id'),
-			comment: event.currentTarget.comment.value
-		})
+		// ACTIONS.addComment({
+		// 	// url: '/api/drawing/' + this.props.drawingModel.get('_id'),
+		// 	comment: event.currentTarget.comment.value
+		// })
+		ACTIONS.addComment(this.props.drawingModel, event.currentTarget.comment.value)
+		event.currentTarget.comment.value = ''
 	},
 
 	render(){
 		let likeButton = 'Like this'
 		console.log(this.props.drawingModel.get('likes'))
 		console.log(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0)
+		console.log(this.props.drawingModel)
 		// 	likeButton = 'liked'
 		let buttonStyle 
 		if(User.getCurrentUser().email == this.props.drawingModel.get('user_email')){
@@ -148,11 +151,25 @@ const UserInteraction = React.createClass({
 			<div id="userInteraction">
 				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
-				<button onClick={this._handleDelete} style={buttonStyle} >Remove</button>
+				<button id="remove" onClick={this._handleDelete} style={buttonStyle} >Delete</button>
 				<form onSubmit={this._handleComments}>
-					<input type="text" name="comment" placeholder="comment" />
+					<textarea type="text" name="comment" placeholder="comment" />
 					<button type="submit">say it</button>
 				</form>
+				{this.props.drawingModel.get('comment').map((comment,i)=>{
+					return <Comment drawingModel={this.props.drawingModel} comment={comment} key={i} />
+				})}
+			</div>
+			)
+	}
+})
+
+const Comment = React.createClass({
+	render(){
+		return (
+			<div className="comment">
+				<h5>{this.props.drawingModel.get('name')}</h5>
+				<p>{this.props.comment}</p>
 			</div>
 			)
 	}

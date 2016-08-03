@@ -1,6 +1,7 @@
 let Router = require('express').Router;
 const apiRouter = Router()
 let helpers = require('../config/helpers.js')
+let mw = require('../config/middleware.js')
 
 let User = require('../db/schema.js').User
 let Drawing = require('../db/schema.js').Drawing
@@ -58,7 +59,10 @@ let Drawing = require('../db/schema.js').Drawing
       })
 
       //Fetching all drawings
-      .get('/drawings', function(request, response){
+      .get('/drawings', mw.checkForQueries, function(request, response){
+        console.log(request.query)
+        // let qry = { date: {'$gte': new Date(2016, 6, 27), '$lt': new Date(2016, 6, 30)}}
+
         Drawing.find(request.query, function(error, results){
           if(error){
             console.log(error)
@@ -66,7 +70,7 @@ let Drawing = require('../db/schema.js').Drawing
               error: error
             })
           } else {
-            console.log(results)
+            // console.log(results)
             response.json(results)
           }
         })
@@ -91,9 +95,9 @@ let Drawing = require('../db/schema.js').Drawing
     })
 
     //Get drawings by date
-    var currentDate = new Date()
-    var oneDay = currentDate.setDate(currentDate.getDate()-1)
-    var oneDayAgo = new Date(oneDay).toJSON().slice(0,10)
+    // var currentDate = new Date()
+    // var oneDay = currentDate.setDate(currentDate.getDate()-1)
+    // var oneDayAgo = new Date(oneDay).toJSON().slice(0,10)
     // var twoDaysAgo = currentDate.setDate(currentDate.getDate()-2)
     // var threeDaysAgo = currentDate.setDate(currentDate.getDate()-3)
     // var fourDaysAgo = currentDate.setDate(currentDate.getDate()-4)
@@ -101,20 +105,20 @@ let Drawing = require('../db/schema.js').Drawing
     // var sixDaysAgo = currentDate.setDate(currentDate.getDate()-6)
     // var sevenDaysAgo = currentDate.setDate(currentDate.getDate()-7)
 
-    apiRouter.get('/drawingsByDate', function(request, response){
-      Drawing.find({"$where": "this.date.toJSON().slice(0,10) == this.oneDayAgo"}, function(error, results){
-        if(error){
-          console.log(error)
-          response.json({
-            error: error
-          })
-        }
-        else {
-          console.log(results)
-          response.json(results)
-        }
-      })
-    })
+    // apiRouter.get('/drawingsByDate/', function(request, response){
+    //   Drawing.find({date: {'$gte': new Date(2016, 6, 27), '$lt': new Date(2016, 6, 30)}}, function(error, results){
+    //     if(error){
+    //       console.log(error)
+    //       response.json({
+    //         error: error
+    //       })
+    //     }
+    //     else {
+    //       console.log(results)
+    //       response.json(results)
+    //     }
+    //   })
+    // })
 
     //Get an individual drawing
     apiRouter

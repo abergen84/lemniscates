@@ -12,9 +12,7 @@ const DashboardView = React.createClass({
 	},
 
 	componentWillMount: function(){
-		ACTIONS.fetchDrawings({
-			url: '/api/drawings/'
-		})
+		ACTIONS.fetchDrawings()
 		STORE.on('updateContent', ()=> {
 			this.setState(
 			STORE.getData()
@@ -50,8 +48,13 @@ const Dashboard = React.createClass({
 	},
 
 	render: function(){
+		let loginName
+		if(User.getCurrentUser()){
+			loginName = `Welcome back ${User.getCurrentUser().name}!`
+		}
 		return (
 			<div id="dashboard">
+				<p>{loginName}</p>
 				<h3>{this._getDate()} theme: TBD</h3>
 			</div>
 			)
@@ -80,66 +83,12 @@ const Drawing = React.createClass({
 	render: function(){
 		return (
 			<div className="drawing">
-				<h5 onClick={this._goToDrawing} >{this.props.drawModel.get('title')}</h5>
-				<img src={this.props.drawModel.get('imageUrl')} />
+				<h3 onClick={this._goToDrawing} >{this.props.drawModel.get('title')}</h3>
+				<img onClick={this._goToDrawing} src={this.props.drawModel.get('imageUrl')} />
 				{/*<MiniDrawing drawModel={this.props.drawModel} />*/}
 			</div>
 			)
 	}
 })
-
-// const MiniDrawing = React.createClass({
-// 	_populateRows: function(){
-// 		// console.log(this.props.matrix)
-// 		return this.props.drawModel.get('boxValues').map((rowArray,i) => 
-// 			<Row 													
-// 				rowArray={rowArray}									
-// 				rowIndex={i}
-// 				key={i} />)
-// 	},
-
-// 	render: function(){
-// 		return (
-// 			<div id="canvas">
-// 				{this._populateRows()}
-// 			</div>
-// 			)
-// 		}
-// })
-
-// const Row = React.createClass({
-
-// 	_createBoxes: function(){
-// 		return this.props.rowArray.map((fill,i) => <Box 
-// 			fill={fill} 
-// 			colIndex={i}
-// 			rowIndex={this.props.rowIndex}
-// 			rowArray={this.props.rowArray}
-// 			key={i} />)
-// 	},
-
-// 	render: function(){
-// 		return (
-// 			<div className="row">
-// 				{this._createBoxes()}
-// 			</div>
-// 			)
-// 	}
-// })
-
-// const Box = React.createClass({
-
-// 	render: function(){
-
-// 		let fillStyle = {
-// 			background: this.props.fill
-// 		}
-
-// 		return (
-// 			<div className="box" style={fillStyle}>
-// 			</div>
-// 			)
-// 	}
-// })
 
 export default DashboardView

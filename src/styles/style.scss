@@ -1,51 +1,202 @@
+@import url(https://fonts.googleapis.com/css?family=Megrim);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+$blueberry: #6B7A8F; //for background, big colors
+$apricot: #F7882F; //for buttons, etc
+$citrus: #F7C331; //for header text
+$apple: #DCC7AA; //for regular text
+
 * {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: "Raleway", Arial, sans-serif;
+	color: white;
 	box-sizing: border-box;
 }
 
-h1 {
-	font-size: 40px;
-	text-align: center;
-	color: black;
+body {
+	background: $blueberry;
 }
 
-#canvas {
-	width: 80%;
-	margin: 0 auto;
-	position: relative;
-	
-	.row {
-		position: relative;
-		width: 100%;
-		overflow: auto;
-		&:last-child {
-			.box {
-				border-width: 1px 0 1px 1px;
-				&:last-child {
-					border-width: 1px 1px 1px 1px;
-				}
+button {
+	color: $citrus;
+	background: $apricot;
+	border-style: none;
+	outline-width: none;
+	padding: 5px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+header {
+	h1 {
+		font-size: 50px;
+		font-family: "Megrim";
+		text-align: center;
+		color: $citrus;
+	}
+	#navMenu {
+		text-align: center;
+		a {
+			text-decoration: none;
+			padding: 10px;
+		}
+	}
+}
+
+#loginView {
+	input {
+		color: #000;
+		font-size: 18px;
+		display: block;
+		margin: 10px auto;
+	}
+	.credentials {
+		text-align: center;
+		margin-top: 40px;
+	}
+}
+
+#dashboard {
+	h3 {
+		color: $citrus;
+		text-align: center;
+	}
+	p {
+		text-align: center;
+		font-weight: bold;
+	}
+}
+
+#singleDrawingView {
+	h2 {
+		text-align: center;
+		font-family: "Megrim";
+	}
+	p {
+		text-align: center;
+	}
+	#userInteraction {
+		text-align: center;
+		margin-top: 30px;
+		span {
+			border: 1px solid $apricot;
+			padding: 5px 10px;
+			font-size: 18px;
+			margin-left: 15px;
+		}
+		form {
+			margin-top: 15px;
+			textarea {
+				font-size: 18px;
+				color: black;
+				width: 300px;
+			}
+			button {
+				margin: 10px 0 0 10px;
+				vertical-align: top;
 			}
 		}
+		#remove {
+			text-align: center;
+		}
+	}
+	.comment {
+		border: 1px solid $apricot;
+		// padding: 10px 20px;
+		margin: 5px auto;
+		width: 50%;
+		h5 {
+			color: $citrus;
+			margin: 5px;
+		}
+	}
+}
+
+
+
+#canvas {
+	display: block;
+	margin: 0 auto;
+	width: 501px;
+	font-size: 0;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	.row {
+		// position: relative;
+		// width: 60%;
+		// overflow: auto;
+		// &:last-child {
+		// 	.box {
+		// 		border-width: 1px 0 1px 1px;
+		// 		&:last-child {
+		// 			border-width: 1px 1px 1px 1px;
+		// 		}
+		// 	}
+		// }
 	}
 
 	.box {
-		float: left;
-		width: 1%;
+		// float: left;
+		display: inline-block;
+		height: 10px;
+		// flex: 1 1 auto;
+		width: 10px;
 		border: 1px solid black;
 		border-width: 1px 0 0 1px;
-		&:last-child {
-			border-width: 1px 1px 0 1px;
+		// &:last-child {
+		// 	border-width: 1px 1px 0 1px;
+		// }
+		// &:after{
+		// 	content:'';
+		// 	padding-top: 100%; 
+		// 	display: block;
+		// }
+	}
+}
+
+#drawingListing {
+	.drawing {
+		h3 {
+			text-align: center;
+			color: $apple;
+			font-family: "Megrim";
+			font-size: 24px;
 		}
-		&:after{
-			content:'';
-			padding-top: 100%; 
+		img {
+			width: 200px;
+			margin: 0 auto;
 			display: block;
 		}
 	}
-	.black {
-		background: black;
+}
+
+#toolbox {
+	text-align: center;
+	margin-top: 10px;
+	button {
+		vertical-align: top;
+		margin-top: 5px;
 	}
-	.green {
-		background: green;
+}
+
+#saveBox {
+	text-align: center;
+	input {
+		font-size: 18px;
+		color: #000;
+	}
+}
+
+#winnerContainer {
+	text-align: center;
+}
+
+#dateListings {
+	text-align: center;
+	.dateListing {
+		img {
+			width: 200px;
+			margin: 0 auto;
+			display: block;
+		}
 	}
 }
