@@ -5,6 +5,7 @@ import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import STORE from '../store.js'
 import toastr from 'toastr'
+import moment from 'moment'
 
 const ArchiveView = React.createClass({
 	
@@ -14,7 +15,7 @@ const ArchiveView = React.createClass({
 
 	componentWillMount(){
 		// _«keyword flag»_«queryTypeName»-«fieldInSchema»
-		ACTIONS.fetchDrawings({})
+		// ACTIONS.fetchDrawings({})
 		STORE.on('updateContent', ()=>{
 			this.setState(STORE.getData())
 		})
@@ -39,22 +40,25 @@ const LastWeek = React.createClass({
 	
 	_handleClick(event){
 		event.preventDefault()
-		// console.log(event.target.value)
-		var date = new Date()
-		var year = date.getUTCFullYear()
-		var month = date.getUTCMonth() + 1
-		var day = date.getUTCDate()
-		// if(event.target.value === 'yesterday'){
-		var yesterdayDay = date.getUTCDate() - 1
-		// }
-		// console.log(date)
-		var yesterdayDate = `${year}-${month}-${yesterdayDay}`
-		console.log('yesterday', yesterdayDate)
-		var todayDate = `${year}-${month}-${day}`
-		console.log('today', todayDate)
+		var date = moment().startOf('day')
+		var formattedDate = date.format("YYYY-M-D")
+		var dynamicDate
+		if(event.target.value === 'yesterday'){
+			var yesterday = moment(date).subtract(1, 'days')
+			dynamicDate = yesterday.format("YYYY-M-D")
+			console.log('this should be yesterday', dynamicDate)
+		} else if (event.target.value === 'week') {
+			var week = moment(date).subtract(7, 'days')
+			dynamicDate = week.format("YYYY-M-D")
+			console.log('this should be a week ago', dynamicDate)
+		} else if (event.target.value === 'month') {
+			var month = moment(date).subtract(1, 'month')
+			dynamicDate = month.format("YYYY-M-D")
+			console.log('this should be a month ago', dynamicDate)
+		}
 		// _«keyword flag»_«queryTypeName»-«fieldInSchema»
 		ACTIONS.fetchDrawings({
-			'_QRY_dateRange-date': [ yesterdayDate,  todayDate ] //less than date, greater than date
+			'_QRY_dateRange-date': [ dynamicDate,  formattedDate ] //less than date, greater than date
 		})							//'2016-7-31' (format)
 	},
 
@@ -63,6 +67,8 @@ const LastWeek = React.createClass({
 			<div id="winnerContainer">
 				<h2>Previous Winners</h2>
 				<button value="yesterday" onClick={this._handleClick }>yesterday</button>
+				<button value="week" onClick={this._handleClick}>week</button>
+				<button value="month" onClick={this._handleClick}>month</button>
 			</div>
 			)
 	}
