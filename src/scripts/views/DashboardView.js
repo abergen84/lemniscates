@@ -4,6 +4,8 @@ import {User} from '../models/models.js'
 import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import STORE from '../store.js'
+import moment from 'moment'
+import THEMES from '../themes.js'
 
 const DashboardView = React.createClass({
 	
@@ -38,13 +40,13 @@ const DashboardView = React.createClass({
 const Dashboard = React.createClass({
 	
 	_getDate: function(){
-		var dateObj = new Date()
-		// console.log(dateObj.getUTCFullYear())
-		var year = dateObj.getUTCFullYear()
-		var month = dateObj.getUTCMonth() + 1
-		var day = dateObj.getUTCDate()
-		var newDate = `${month}/${day}/${year}`
-		return newDate
+		var date = moment().startOf('day')
+		var formattedDate = date.format("M-D-YYYY")
+		return formattedDate
+	},
+
+	_getTheme: function(){
+		ACTIONS.getTheme(THEMES)
 	},
 
 	render: function(){
@@ -55,7 +57,8 @@ const Dashboard = React.createClass({
 		return (
 			<div id="dashboard">
 				<p>{loginName}</p>
-				<h3>{this._getDate()} theme: TBD</h3>
+				<h3>{this._getDate()}</h3>
+				<h2>{this._getTheme()}</h2>
 			</div>
 			)
 	}

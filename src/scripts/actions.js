@@ -98,18 +98,19 @@ const ACTIONS = {
 		})
 	},
 
-	addComment: function(drawing, value){
+	addComment: function(drawing, value, name){
 		// var drawing = STORE.data.drawingModel
 		drawing.set({
-			comment: drawing.get('comment').concat(value)
+			comment: drawing.get('comment').concat(name + ' says: ' + value)
 		})
 		drawing.save().then(()=>{
 			drawing.fetch()
 		})
 	},
 
-	getDate: function(value){
-
+	getTheme: function(themes){
+		console.log('theme generator')
+		return themes[Math.floor(Math.random() * themes.length)]
 	},
 
 

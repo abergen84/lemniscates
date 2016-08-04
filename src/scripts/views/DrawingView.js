@@ -12,9 +12,9 @@ const DrawingView = React.createClass({
 	matrix: Array(40).fill(null).map((val) => Array(50).fill('white')),
 
 	getInitialState: function(){
-		return {
+		return {		
 			painting: false,
-			currentPaintingColor: 'black'
+			currentPaintingColor: '#000000'
 		}
 	},
 
@@ -26,6 +26,10 @@ const DrawingView = React.createClass({
 			let row = boxFillObj.rowIndex,
 				col = boxFillObj.colIndex
 
+		// var test = this.state.matrix[row][col]
+		// 	this.setState({
+		// 		matrix: test = boxFillObj.fill
+		// 	})
 			this.matrix[row][col] = boxFillObj.fill
 			// console.log(this.matrix)
 			// console.log(this.matrix[boxFillObj.i])
@@ -52,8 +56,8 @@ const DrawingView = React.createClass({
 
 
 	render: function(){
-		console.log('hellooooo')
-		console.log(this.state.painting)
+		// console.log('hellooooo')
+		// console.log(this.state.painting)
 		// console.log(typeof this.props.matrix)
 		// console.log(this.matrix instanceof Array)
 		// console.log(this.matrix)
@@ -65,7 +69,7 @@ const DrawingView = React.createClass({
 					matrix={this.matrix} 
 					painting={this.state.painting} 
 					currentPaintingColor={this.state.currentPaintingColor} />
-				<Toolbox />
+				<Toolbox painting= {this.state.painting} currentPaintingColor={this.state.currentPaintingColor} />
 				<SaveFeature matrix={this.matrix} />
 			</div>
 			)
@@ -73,9 +77,9 @@ const DrawingView = React.createClass({
 })
 
 const DrawingCanvas = React.createClass({
-		
+
 	_togglePainting: function(){
-		console.log('PAINTING!!')
+		// console.log('PAINTING!!')
 		let stateObj = {}
 
 		if(!this.props.painting){
@@ -173,8 +177,23 @@ const Toolbox = React.createClass({
 	},
 
 	render: function(){
+		let paintbrush
+		let paintStyle
+		if(this.props.painting){
+			paintbrush = 'brush on'
+			paintStyle = {
+				color: '#F7882F',
+				fontWeight: '900',
+				// textTransform: 'uppercase'
+			}
+		} else {
+			paintbrush = 'brush off'
+		}
 		return (
 			<div id="toolbox">
+			<div id="paintbrush">
+				<span><p style={paintStyle}>{paintbrush}</p></span>
+			</div>
 			<button onClick={this._resetCanvas}>Reset Canvas</button>
 				{ ["#000000", //black 
 				"#26A65B", // green (Eucalyptus)
@@ -184,16 +203,17 @@ const Toolbox = React.createClass({
 				"#F9690E", // orange (Ectasy)
 				"#9A12B3", // purple (Seance)
 				"#BFBFBF", // silver (Silver)
-				"#FFFFFF"].map((colorVal,i)=>{return <PaletteColor bgColor={colorVal} key={i} />}) }
+				"#FFFFFF"].map((colorVal,i)=>{return <PaletteColor bgColor={colorVal} active={colorVal === this.props.currentPaintingColor} key={i} />}) }
 			</div>
 			)
 	}
 })
 
 const PaletteColor = React.createClass({
-
+	
 	_changeColor: function(event){
 		event.preventDefault()
+		// this.refs.color.className = 'active'
 		// console.log(event.currentTarget.dataset.colorval) // 'data-' can be accessed via dataset on currentTarget
 		Backbone.Events.trigger('modifyAppState', 
 			{
@@ -202,17 +222,20 @@ const PaletteColor = React.createClass({
 	},
 
 	render: function(){
+
+		const widthColor = this.props.active ? '40px' : '30px';
+		const heightColor = this.props.active ? '40px' : '30px';
 		let palletteStyle = {
 			margin: "4px 4px", 
-			width: '30px', 
-			height: '30px', 
+			width: widthColor, 
+			height: heightColor, 
 			borderRadius: "50%", 
 			border: "1px solid black",
 			display: 'inline-block', 
 			background: this.props.bgColor
 		}
 		return (
-			<span onClick={this._changeColor} 
+			<span ref="color" onClick={this._changeColor} 
 			data-colorval={this.props.bgColor} 
 			style={palletteStyle}></span>
 			)

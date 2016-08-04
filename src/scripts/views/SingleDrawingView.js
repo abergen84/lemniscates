@@ -127,7 +127,7 @@ const UserInteraction = React.createClass({
 		// 	// url: '/api/drawing/' + this.props.drawingModel.get('_id'),
 		// 	comment: event.currentTarget.comment.value
 		// })
-		ACTIONS.addComment(this.props.drawingModel, event.currentTarget.comment.value)
+		ACTIONS.addComment(this.props.drawingModel, event.currentTarget.comment.value, User.getCurrentUser().name)
 		event.currentTarget.comment.value = ''
 	},
 
@@ -166,9 +166,9 @@ const UserInteraction = React.createClass({
 
 const Comment = React.createClass({
 	render(){
+		// <h5>{this.props.drawingModel.get('name')}</h5>
 		return (
 			<div className="comment">
-				<h5>{this.props.drawingModel.get('name')}</h5>
 				<p>{this.props.comment}</p>
 			</div>
 			)
