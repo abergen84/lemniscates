@@ -4,4 +4,4 @@ const THEMES = [
 "tree", "sun", "computer", "old man", "young man", "beard", "watch"
 ]
 
-export default THEMES
+export { THEMES }

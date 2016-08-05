@@ -14,8 +14,10 @@ const DrawingView = React.createClass({
 	getInitialState: function(){
 		return {		
 			painting: false,
-			currentPaintingColor: '#000000'
+			currentPaintingColor: '#000000',
+			nuclearClear: true		
 		}
+
 	},
 
 	componentWillMount(){
@@ -26,14 +28,13 @@ const DrawingView = React.createClass({
 			let row = boxFillObj.rowIndex,
 				col = boxFillObj.colIndex
 
-		// var test = this.state.matrix[row][col]
-		// 	this.setState({
-		// 		matrix: test = boxFillObj.fill
-		// 	})
 			this.matrix[row][col] = boxFillObj.fill
-			// console.log(this.matrix)
-			// console.log(this.matrix[boxFillObj.i])
-			// console.log(this.matrix)
+			console.log('top level clear state???',  this.state.nuclearClear)
+			
+			if (this.state.nuclearClear) {
+				console.log('resetting nuclear clear....')
+				this.setState({nuclearClear: false})
+			}
 		})
 
 		Backbone.Events.on('modifyAppState', (stateObj)=>{
@@ -43,15 +44,19 @@ const DrawingView = React.createClass({
 		Backbone.Events.on('resetCanvas', ()=> {
 			this.matrix = Array(40).fill(null).map((val) => Array(50).fill('white'))
 			// return this.matrix
-			console.log(this.matrix)
-			console.log('forcing update???')
-			this.forceUpdate()
+			this.setState({
+				nuclearClear: true,
+				// matrix: Array(40).fill(null).map((val) => Array(50).fill('white'))
+			})
 		})
+
 	},
 
 	componentWillUnmount: function(){
 		Backbone.Events.off('paint')
 		Backbone.Events.off('modifyAppState')
+		Backbone.Events.off('resetCanvas')
+
 	},
 
 
@@ -64,7 +69,8 @@ const DrawingView = React.createClass({
 		return (
 			<div id="drawingView">
 				<Header />
-				<DrawingCanvas 
+				<DrawingCanvas
+					wasCleared={this.state.nuclearClear}
 					totalLength={this.matrix.length} 
 					matrix={this.matrix} 
 					painting={this.state.painting} 
@@ -77,16 +83,21 @@ const DrawingView = React.createClass({
 })
 
 const DrawingCanvas = React.createClass({
+	shouldComponentUpdate: function(nextProps, nextState) {
+
+	  return true
+	},
 
 	_togglePainting: function(){
-		// console.log('PAINTING!!')
 		let stateObj = {}
 
 		if(!this.props.painting){
+			console.log('PAINTING!!')
 			stateObj.painting = true
 			
 		}  else {
 			stateObj.painting = false
+			console.log('NOT PAINTING!!')
 
 		}
 
@@ -97,6 +108,7 @@ const DrawingCanvas = React.createClass({
 	_populateRows: function(){
 		return this.props.matrix.map((rowArray,i) =>
 			<Row 
+				wasCleared={this.props.wasCleared}
 				rowArray={rowArray}
 				rowIndex={i}
 				key={i}
@@ -119,6 +131,7 @@ const Row = React.createClass({
 
 	_createBoxes: function(){
 		return this.props.rowArray.map((fill,i) => <Box 
+			wasCleared={this.props.wasCleared}
 			fill={fill} 
 			colIndex={i}
 			rowIndex={this.props.rowIndex}
@@ -145,6 +158,21 @@ const Box = React.createClass({
 		}
 	},
 	
+	componentWillReceiveProps: function(newProps){
+		if (newProps.wasCleared){
+			this.setState({
+				fill: newProps.fill
+			})
+		}
+
+		// if (this.props.painting) {
+		// 	this.setState({
+		// 		fill: this.props.currentPaintingColor
+		// 	})
+		// }
+		
+	},
+
 	_colorBox: function() {
 		if (this.props.painting) {
 			this.setState({

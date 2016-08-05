@@ -19,7 +19,20 @@ const ArchiveView = React.createClass({
 		STORE.on('updateContent', ()=>{
 			this.setState(STORE.getData())
 		})
+
+		// console.log(STORE.data.sort(this._compare))
+
 	},
+
+	// _compare(a, b){
+	// 	if(a.likes < b.likes){
+	// 		return -1
+	// 	} else if (a.likes > b.likes){
+	// 		return 1 
+	// 	} else {
+	// 		return 0
+	// 	}
+	// },
 
 	componentWillUnmount(){
 		STORE.off('updateContent')
@@ -60,6 +73,7 @@ const LastWeek = React.createClass({
 		ACTIONS.fetchDrawings({
 			'_QRY_dateRange-date': [ dynamicDate,  formattedDate ] //less than date, greater than date
 		})							//'2016-7-31' (format)
+
 	},
 
 	render(){
@@ -78,9 +92,12 @@ const DateListings = React.createClass({
 	render(){
 		return (
 			<div id="dateListings">
-				{this.props.drawingCollection.map((model)=> {
-					return <DateListing model={model} key={model.cid} />
-				})}
+				{this.props.drawingCollection.models
+					.sort((a,b)=>{return b.get("likes").length - a.get("likes").length} )
+					.map((model)=> {
+						return <DateListing model={model} key={model.cid} />
+					})
+				}
 			</div>
 			)
 	}

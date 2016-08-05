@@ -15,7 +15,18 @@ const DrawingModel = Backbone.Model.extend({
 
 const DrawingCollection = Backbone.Collection.extend({
 	model: DrawingModel,
-	url: '/api/drawings'
+	url: '/api/drawings',
+	sort_key: 'id',
+	// comparator: function(model){
+	// 	return model.get(this.sort_key)
+	// },
+	// sortByField: function(fieldName){
+	// 	this.sort_key = fieldName
+	// 	this.sort()
+	// },
+	initialize(){
+		// this.sortByField('likes')
+	}
 })
 
 

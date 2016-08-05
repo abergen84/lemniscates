@@ -5,7 +5,7 @@ import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import STORE from '../store.js'
 import moment from 'moment'
-import THEMES from '../themes.js'
+import {THEMES} from '../themes.js'
 
 const DashboardView = React.createClass({
 	

@@ -24,6 +24,7 @@ const STORE = _.extend(Backbone.Events, {
 	initialize: function(){
 		this.data.drawingCollection.on('sync update', this.emitChange.bind(this))
 		this.data.drawingModel.on('sync update', this.emitChange.bind(this))
+		// this.data.drawingCollection.sortByField('likes')
 	}
 })
 
