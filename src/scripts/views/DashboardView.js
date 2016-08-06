@@ -46,7 +46,7 @@ const Dashboard = React.createClass({
 	},
 
 	_getTheme: function(){
-		ACTIONS.getTheme(THEMES)
+		return ACTIONS.getTheme(THEMES)
 	},
 
 	render: function(){
@@ -56,9 +56,12 @@ const Dashboard = React.createClass({
 		}
 		return (
 			<div id="dashboard">
-				<p>{loginName}</p>
-				<h3>{this._getDate()}</h3>
-				<h2>{this._getTheme()}</h2>
+					<p>{loginName}</p>
+					<h3>Today's date: {this._getDate()}</h3>
+					<h3>Today's theme: {this._getTheme()}</h3>
+					<a href="#profile">Your profile</a>
+					<a href="#drawing/create">Draw</a> 
+					<a href="#archive">View past winners</a>
 			</div>
 			)
 	}
@@ -69,6 +72,7 @@ const DrawingListing = React.createClass({
 	render: function(){
 		return (
 			<div id="drawingListing">
+				<h1>Latest submissions</h1>
 				{this.props.drawingCollection.map((model)=> {
 					return <Drawing drawModel={model} key={model.cid} />
 				})}

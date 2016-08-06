@@ -1,11 +1,5 @@
 //TO DO
 
-//put the matrix on state
-
-//Reset Canvas Button
- 
-//re-order drawings based on number of likes
-
 //create array of random themes
 
 //able to save PDF of drawing

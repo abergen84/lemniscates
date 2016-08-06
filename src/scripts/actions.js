@@ -109,7 +109,7 @@ const ACTIONS = {
 	},
 
 	getTheme: function(themes){
-		console.log('theme generator')
+		console.log('theme generator', themes[Math.floor(Math.random() * themes.length)])	
 		return themes[Math.floor(Math.random() * themes.length)]
 	},
 

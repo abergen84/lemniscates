@@ -11,7 +11,6 @@ const Header = React.createClass({
 	render: function(){
 		return (
 			<header>
-				<h1>lemniscates</h1>
 				<div id="navMenu">
 					<a href="#home">Home</a>
 					<a href="#profile">Profile</a>

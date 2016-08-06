@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Megrim);
-@import url(https://fonts.googleapis.com/css?family=Raleway);
+// @import url(https://fonts.googleapis.com/css?family=Raleway);
+// @import url(https://fonts.googleapis.com/css?family=Gentium+Book+Basic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
 
 $blueberry: #6B7A8F; //for background, big colors
 $apricot: #F7882F; //for buttons, etc
@@ -7,13 +9,20 @@ $citrus: #F7C331; //for header text
 $apple: #DCC7AA; //for regular text
 
 * {
-	font-family: "Raleway", Arial, sans-serif;
+	font-family: "Open Sans", Arial, sans-serif;
 	color: white;
 	box-sizing: border-box;
 }
 
 body {
-	background: $blueberry;
+	background: linear-gradient(
+      rgba(0, 0, 0, 0.4), 
+      rgba(0, 0, 0, 0.4)
+      ),
+	url('../images/crayons.jpeg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	margin: 0;
 }
 
 button {
@@ -21,23 +30,27 @@ button {
 	background: $apricot;
 	border-style: none;
 	outline-width: none;
-	padding: 5px;
+	padding: 5px 10px;
 	font-size: 18px;
 	cursor: pointer;
 }
 
 header {
-	h1 {
-		font-size: 50px;
-		font-family: "Megrim";
-		text-align: center;
-		color: $citrus;
-	}
 	#navMenu {
 		text-align: center;
+		background: $apricot;
+		padding: 10px 0;
 		a {
 			text-decoration: none;
 			padding: 10px;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-size: 14px;
+			font-weight: 700;
+			transition: all .5s ease;
+			&:hover {
+				color: $citrus;
+			}
 		}
 	}
 }
@@ -45,24 +58,67 @@ header {
 #loginView {
 	input {
 		color: #000;
-		font-size: 18px;
+		font-size: 14px;
 		display: block;
 		margin: 10px auto;
+		transition: all .5s ease;
+		&:focus {
+			color: $blueberry;
+			outline: 2px solid $apricot;
+		}
 	}
 	.credentials {
 		text-align: center;
+		margin: 0 auto;
 		margin-top: 40px;
+		border: 2px solid $apricot;
+		width: 35%;
+		display: block;
+		padding: 20px 0;
+		background: rgba(220,199,170,.6);
+	}
+	h3 {
+		margin-top: 0;
+	}
+	h1 {
+		font-size: 50px;
+		font-family: "Megrim";
+		text-align: center;
+		color: $citrus;
 	}
 }
 
 #dashboard {
+	border: 2px solid $apricot;
+	background: rgba(220,199,170,.6);
+	width: 50%;
+	margin: 10% auto 0;
+	padding: 20px;
 	h3 {
 		color: $citrus;
 		text-align: center;
+		font-family: "Megrim";
+		font-size: 22px;
 	}
 	p {
 		text-align: center;
 		font-weight: bold;
+		font-size: 18px;
+	}
+	a {
+		display: block;
+		text-align: center;
+		width: 50%;
+		background: $apricot;
+		padding: 5px 10px;
+		text-decoration: none;
+		// color: $blueberry;
+		margin: 10px auto;
+		font-size: 18px;
+		transition: all .5s ease;
+		&:hover {
+			background: $citrus;
+		}
 	}
 }
 
@@ -115,7 +171,7 @@ header {
 
 #canvas {
 	display: block;
-	margin: 0 auto;
+	margin: 5% auto 0;
 	width: 501px;
 	font-size: 0;
 	border-right: 1px solid black;
@@ -154,6 +210,9 @@ header {
 }
 
 #drawingListing {
+	h1 {
+		text-align: center;
+	}
 	.drawing {
 		h3 {
 			text-align: center;
@@ -171,7 +230,9 @@ header {
 
 #toolbox {
 	text-align: center;
-	margin-top: 10px;
+	margin: 10px auto 0;
+	border: 1px solid $citrus;
+	width: 500px;
 	button {
 		vertical-align: top;
 		margin-top: 5px;
@@ -183,6 +244,8 @@ header {
 	input {
 		font-size: 18px;
 		color: #000;
+		margin-right: 10px;
+		margin-bottom: 20px;
 	}
 }
 
