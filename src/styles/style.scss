@@ -1,15 +1,23 @@
-@import url(https://fonts.googleapis.com/css?family=Megrim);
+// @import url(https://fonts.googleapis.com/css?family=Megrim);
 // @import url(https://fonts.googleapis.com/css?family=Raleway);
 // @import url(https://fonts.googleapis.com/css?family=Gentium+Book+Basic);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+// @import 'https://fonts.googleapis.com/css?family=Oswald';
+// @import 'https://fonts.googleapis.com/css?family=Lato';
+// @import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
+@import 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700';
+@import 'https://fonts.googleapis.com/css?family=PT+Mono';
+
 
 $blueberry: #6B7A8F; //for background, big colors
 $apricot: #F7882F; //for buttons, etc
 $citrus: #F7C331; //for header text
-$apple: #DCC7AA; //for regular text
+$apple: #0AC5F4; //for regular text
+$headerfont: "PT Mono";
+$textfont: "Roboto Condensed";
 
 * {
-	font-family: "Open Sans", Arial, sans-serif;
+	font-family: $textfont, Arial, sans-serif;
 	color: white;
 	box-sizing: border-box;
 }
@@ -38,7 +46,7 @@ button {
 header {
 	#navMenu {
 		text-align: center;
-		background: $apricot;
+		background: rgba(0,0,0,0.4);
 		padding: 10px 0;
 		a {
 			text-decoration: none;
@@ -46,7 +54,6 @@ header {
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			font-size: 14px;
-			font-weight: 700;
 			transition: all .5s ease;
 			&:hover {
 				color: $citrus;
@@ -69,35 +76,49 @@ header {
 	}
 	.credentials {
 		text-align: center;
-		margin: 0 auto;
-		margin-top: 40px;
-		border: 2px solid $apricot;
-		width: 35%;
+		margin: 40px auto 30px;
+		width: 25%;
 		display: block;
 		padding: 20px 0;
-		background: rgba(220,199,170,.6);
+		background: $apple;
+		h3 {
+			margin-top: 0;
+			transition: all .5s ease;
+			&:hover {
+				color: $citrus;
+				cursor: pointer;
+			}
+		}
 	}
 	h3 {
-		margin-top: 0;
+		margin: 0;
+		text-align: center;
+		font-family: $headerfont;
+	}
+	h2 {
+		text-align: center;
+		font-family: $headerfont;
+		font-style: italic;
+		margin-top: 10px;
 	}
 	h1 {
 		font-size: 50px;
-		font-family: "Megrim";
+		font-family: $headerfont;
 		text-align: center;
 		color: $citrus;
+		margin-top: 15%;
 	}
 }
 
 #dashboard {
-	border: 2px solid $apricot;
-	background: rgba(220,199,170,.6);
+	background: $apple;
 	width: 50%;
 	margin: 10% auto 0;
 	padding: 20px;
 	h3 {
 		color: $citrus;
 		text-align: center;
-		font-family: "Megrim";
+		font-family: $headerfont;
 		font-size: 22px;
 	}
 	p {
@@ -108,11 +129,10 @@ header {
 	a {
 		display: block;
 		text-align: center;
-		width: 50%;
+		width: 40%;
 		background: $apricot;
 		padding: 5px 10px;
 		text-decoration: none;
-		// color: $blueberry;
 		margin: 10px auto;
 		font-size: 18px;
 		transition: all .5s ease;
@@ -125,10 +145,22 @@ header {
 #singleDrawingView {
 	h2 {
 		text-align: center;
-		font-family: "Megrim";
+		font-family: $headerfont;
+		font-size: 26px;
 	}
 	p {
 		text-align: center;
+	}
+	#backHome {
+		position: absolute;
+		text-decoration: none;
+		font-size: 20px;
+		top: 50px;
+		left: 20px;
+		transition: all .5s ease;
+		&:hover {
+			color: $citrus;
+		}
 	}
 	#userInteraction {
 		text-align: center;
@@ -140,29 +172,45 @@ header {
 			margin-left: 15px;
 		}
 		form {
-			margin-top: 15px;
+			margin: 15px auto 15px;
+			background: rgba(247,195,49,0.8);
+			width: 40%;
 			textarea {
 				font-size: 18px;
 				color: black;
 				width: 300px;
+				margin: 20px 0;
 			}
 			button {
-				margin: 10px 0 0 10px;
+				margin: 30px 0 0 10px;
 				vertical-align: top;
 			}
 		}
 		#remove {
 			text-align: center;
+			margin-left: 20px;
+			color: red;
 		}
-	}
-	.comment {
-		border: 1px solid $apricot;
-		// padding: 10px 20px;
-		margin: 5px auto;
-		width: 50%;
-		h5 {
-			color: $citrus;
-			margin: 5px;
+		.comment {
+			background: $apple;
+			text-align: left;
+			margin-bottom: 10px;
+			width: 40%;
+			border: 1px solid $apricot;
+			// padding: 10px 20px;
+			margin: 5px auto;
+			&:last-child {
+				margin-bottom: 30px;
+			}
+			h5 {
+				color: $citrus;
+				margin: 5px;
+			}
+			p {
+				font-size: 18px;
+				margin-left: 20px;
+				text-align: left;
+			}
 		}
 	}
 }
@@ -177,48 +225,38 @@ header {
 	border-right: 1px solid black;
 	border-bottom: 1px solid black;
 	.row {
-		// position: relative;
-		// width: 60%;
-		// overflow: auto;
-		// &:last-child {
-		// 	.box {
-		// 		border-width: 1px 0 1px 1px;
-		// 		&:last-child {
-		// 			border-width: 1px 1px 1px 1px;
-		// 		}
-		// 	}
-		// }
 	}
 
 	.box {
-		// float: left;
 		display: inline-block;
 		height: 10px;
-		// flex: 1 1 auto;
 		width: 10px;
 		border: 1px solid black;
 		border-width: 1px 0 0 1px;
-		// &:last-child {
-		// 	border-width: 1px 1px 0 1px;
-		// }
-		// &:after{
-		// 	content:'';
-		// 	padding-top: 100%; 
-		// 	display: block;
-		// }
 	}
 }
 
 #drawingListing {
+	width: 50%;
+	margin: 0 auto;
 	h1 {
 		text-align: center;
+		margin-top: 40px;
 	}
 	.drawing {
+		background: rgba(10,197,244,0.8);
+		padding: 10px 0;
+		margin: 20px 0;
+		transition: all .5s ease;
+		&:hover {
+			background: $apple;
+		}
 		h3 {
 			text-align: center;
-			color: $apple;
-			font-family: "Megrim";
+			color: #fff;
+			font-family: $headerfont;
 			font-size: 24px;
+			margin-top: 0;
 		}
 		img {
 			width: 200px;
@@ -232,6 +270,7 @@ header {
 	text-align: center;
 	margin: 10px auto 0;
 	border: 1px solid $citrus;
+	background: rgba(10,197,244,0.8);
 	width: 500px;
 	button {
 		vertical-align: top;
@@ -257,8 +296,52 @@ header {
 }
 
 #dateListings {
-	text-align: center;
+	width: 50%;
+	margin: 0 auto;
 	.dateListing {
+		background: rgba(10,197,244,0.8);
+		padding: 10px 0;
+		margin: 20px 0;
+		transition: all .5s ease;
+		&:hover {
+			background: $apple;
+		}
+		h3 {
+			text-align: center;
+			color: #fff;
+			font-family: $headerfont;
+			font-size: 24px;
+			margin-top: 0;
+		}
+		img {
+			width: 200px;
+			margin: 0 auto;
+			display: block;
+		}
+	}
+}
+
+#profileView {
+	width: 50%;
+	margin: 0 auto;
+	h1 {
+		text-align: center;
+	}
+	.singleDrawing {
+		background: rgba(10,197,244,0.8);
+		padding: 10px 0;
+		margin: 20px 0;
+		transition: all .5s ease;
+		&:hover {
+			background: $apple;
+		}
+		h3 {
+			text-align: center;
+			color: #fff;
+			font-family: $headerfont;
+			font-size: 24px;
+			margin-top: 0;
+		}
 		img {
 			width: 200px;
 			margin: 0 auto;

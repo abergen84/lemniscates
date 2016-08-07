@@ -60,8 +60,8 @@ const Dashboard = React.createClass({
 					<h3>Today's date: {this._getDate()}</h3>
 					<h3>Today's theme: {this._getTheme()}</h3>
 					<a href="#profile">Your profile</a>
-					<a href="#drawing/create">Draw</a> 
-					<a href="#archive">View past winners</a>
+					<a href="#drawing/create">Draw something!</a> 
+					<a href="#drawing/archive">View past winners</a>
 			</div>
 			)
 	}
@@ -89,9 +89,9 @@ const Drawing = React.createClass({
 
 	render: function(){
 		return (
-			<div className="drawing">
-				<h3 onClick={this._goToDrawing} >{this.props.drawModel.get('title')}</h3>
-				<img onClick={this._goToDrawing} src={this.props.drawModel.get('imageUrl')} />
+			<div className="drawing" onClick={this._goToDrawing} >
+				<h3>{this.props.drawModel.get('title')}</h3>
+				<img src={this.props.drawModel.get('imageUrl')} />
 				{/*<MiniDrawing drawModel={this.props.drawModel} />*/}
 			</div>
 			)

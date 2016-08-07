@@ -111,9 +111,9 @@ const DateListing = React.createClass({
 
 	render(){
 		return (
-			<div className="dateListing">
-				<p onClick={this._handleClick} >{this.props.model.get('title')}</p>
-				<img onClick={this._handleClick} src={this.props.model.get('imageUrl')} />
+			<div onClick={this._handleClick} className="dateListing">
+				<h3>{this.props.model.get('title')}</h3>
+				<img src={this.props.model.get('imageUrl')} />
 			</div>
 			)
 	}

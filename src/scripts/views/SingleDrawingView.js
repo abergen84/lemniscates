@@ -39,6 +39,7 @@ const SingleDrawingView = React.createClass({
 				<Header />
 				<h2>{this.state.drawingModel.get('title')}</h2>
 				<p>by {this.state.drawingModel.get('name')}</p>
+				<a id="backHome" href="#home">back home</a>
 				<DrawingListing matrix={this.state.drawingModel} />
 				<UserInteraction drawingModel={this.state.drawingModel} />
 			</div>
@@ -140,7 +141,7 @@ const UserInteraction = React.createClass({
 		let buttonStyle 
 		if(User.getCurrentUser().email == this.props.drawingModel.get('user_email')){
 			buttonStyle = {
-				display: "block"
+				display: "inline-block",
 			}
 		} else {
 			buttonStyle = {
@@ -151,7 +152,8 @@ const UserInteraction = React.createClass({
 			<div id="userInteraction">
 				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
-				<button id="remove" onClick={this._handleDelete} style={buttonStyle} >Delete</button>
+				<button id="remove" onClick={this._handleDelete} style={buttonStyle} >Delete Drawing</button>
+				<p>Leave a comment</p>
 				<form onSubmit={this._handleComments}>
 					<textarea type="text" name="comment" placeholder="comment" />
 					<button type="submit">say it</button>

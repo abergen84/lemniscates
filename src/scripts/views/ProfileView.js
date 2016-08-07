@@ -30,6 +30,7 @@ const ProfileView = React.createClass({
 			<div id="profileView">
 				<Header />
 				<ProfileInfo />
+				<h1>Your drawings</h1>
 				<YourDrawings yourDrawingCollection={this.state.drawingCollection} />
 			</div>
 			)
@@ -69,7 +70,7 @@ const Drawing = React.createClass({
 	render(){
 		return (
 			<div className="singleDrawing">
-				<p onClick={this._handleClick} >{this.props.yourDrawingModel.get('title')}</p>
+				<h3 onClick={this._handleClick} >{this.props.yourDrawingModel.get('title')}</h3>
 				<img src={this.props.yourDrawingModel.get('imageUrl')} />
 			</div>
 			)
