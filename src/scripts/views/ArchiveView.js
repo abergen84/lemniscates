@@ -19,20 +19,7 @@ const ArchiveView = React.createClass({
 		STORE.on('updateContent', ()=>{
 			this.setState(STORE.getData())
 		})
-
-		// console.log(STORE.data.sort(this._compare))
-
 	},
-
-	// _compare(a, b){
-	// 	if(a.likes < b.likes){
-	// 		return -1
-	// 	} else if (a.likes > b.likes){
-	// 		return 1 
-	// 	} else {
-	// 		return 0
-	// 	}
-	// },
 
 	componentWillUnmount(){
 		STORE.off('updateContent')
@@ -114,6 +101,8 @@ const DateListing = React.createClass({
 			<div onClick={this._handleClick} className="dateListing">
 				<h3>{this.props.model.get('title')}</h3>
 				<img src={this.props.model.get('imageUrl')} />
+				<h4>artist: {this.props.model.get('name')}</h4>
+				<p>Likes: {this.props.model.get('likes').length}</p>
 			</div>
 			)
 	}

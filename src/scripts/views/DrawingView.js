@@ -34,7 +34,9 @@ const DrawingView = React.createClass({
 			
 			if (this.state.nuclearClear) {
 				console.log('resetting nuclear clear....')
-				this.setState({nuclearClear: false})
+				this.setState({
+					nuclearClear: false
+				})
 			}
 		})
 
@@ -44,10 +46,8 @@ const DrawingView = React.createClass({
 
 		Backbone.Events.on('resetCanvas', ()=> {
 			this.matrix = Array(40).fill(null).map((val) => Array(50).fill('white'))
-			// return this.matrix
 			this.setState({
 				nuclearClear: true,
-				// matrix: Array(40).fill(null).map((val) => Array(50).fill('white'))
 			})
 		})
 
@@ -85,7 +85,6 @@ const DrawingView = React.createClass({
 
 const DrawingCanvas = React.createClass({
 	shouldComponentUpdate: function(nextProps, nextState) {
-
 	  return true
 	},
 
@@ -213,7 +212,6 @@ const Toolbox = React.createClass({
 			paintStyle = {
 				color: '#F7882F',
 				fontWeight: '900',
-				// textTransform: 'uppercase'
 			}
 		} else {
 			paintbrush = 'brush off'
@@ -301,7 +299,6 @@ const SaveFeature = React.createClass({
 	render: function(){
 		return (
 			<div id="saveBox">
-			{/*<button onClick={this._toCanvas}>make canvas</button>*/}
 			<p>Ready to submit? Warning: no editing once submitted!</p>
 				<form onSubmit={this._saveDrawing}>
 					<input type="text" name="title" placeholder="Name" />

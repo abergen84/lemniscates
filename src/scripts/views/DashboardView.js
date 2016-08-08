@@ -74,7 +74,9 @@ const DrawingListing = React.createClass({
 		return (
 			<div id="drawingListing">
 				<h1>Latest submissions</h1>
-				{this.props.drawingCollection.map((model)=> {
+				{this.props.drawingCollection.models
+					.sort((a,b)=>{return b.get('likes').length - a.get('likes').length})
+					.map((model)=> {
 					return <Drawing drawModel={model} key={model.cid} />
 				})}
 			</div>
@@ -93,7 +95,8 @@ const Drawing = React.createClass({
 			<div className="drawing" onClick={this._goToDrawing} >
 				<h3>{this.props.drawModel.get('title')}</h3>
 				<img src={this.props.drawModel.get('imageUrl')} />
-				{/*<MiniDrawing drawModel={this.props.drawModel} />*/}
+				<h4>artist: {this.props.drawModel.get('name')}</h4>
+				<p>Likes: {this.props.drawModel.get('likes').length}</p>
 			</div>
 			)
 	}
