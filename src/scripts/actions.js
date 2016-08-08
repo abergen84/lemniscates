@@ -84,8 +84,11 @@ const ACTIONS = {
 			drawing.set({
 				likes: drawing.get('likes').concat(user._id)
 			})
+			toastr.info('Liked')
 			drawing.save()
 			.then(()=> STORE.data.drawingModel.fetch())
+		} else {
+			toastr.warning('You already liked this!')
 		}
 	},
 

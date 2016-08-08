@@ -108,7 +108,6 @@ const UserInteraction = React.createClass({
 	_handleLike(){
 		console.log('like button pressed')
 		ACTIONS.addLike(this.props.drawingModel,User.getCurrentUser())
-		toastr.info('Liked')
 		// setTimeout(()=>{if(this.props.drawingModel.get('likes').indexOf(User.getCurrentUser()._id) > 0){
 		// toastr.warning('Already liked this!')
 		// }},500)

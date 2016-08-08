@@ -14,7 +14,17 @@ const DashboardView = React.createClass({
 	},
 
 	componentWillMount: function(){
-		ACTIONS.fetchDrawings()
+		var startDate = moment().startOf('day')
+		var formattedStartDate = startDate.format("YYYY-M-D")
+		console.log(formattedStartDate)
+		var endDate = moment().startOf('day')
+		var tomorrow = moment(endDate).add(1, 'days')
+		var formattedEndDate = tomorrow.format("YYYY-M-D")
+		console.log(formattedEndDate)
+
+		ACTIONS.fetchDrawings({
+			'_QRY_dateRange-date': [ formattedStartDate,  formattedEndDate ]
+		})
 		STORE.on('updateContent', ()=> {
 			this.setState(
 			STORE.getData()

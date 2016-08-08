@@ -77,8 +77,18 @@ const LastWeek = React.createClass({
 
 const DateListings = React.createClass({
 	render(){
+		let winnerStyle = {
+			display: "block"
+		}
+		if(this.props.drawingCollection.length === 0){
+			winnerStyle = {
+				display: "none"
+			}
+		}	
+
 		return (
 			<div id="dateListings">
+				<h2 style={winnerStyle} >The Winner!</h2>
 				{this.props.drawingCollection.models
 					.sort((a,b)=>{return b.get("likes").length - a.get("likes").length} )
 					.map((model)=> {

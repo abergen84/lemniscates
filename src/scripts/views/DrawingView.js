@@ -22,6 +22,7 @@ const DrawingView = React.createClass({
 	},
 
 	componentWillMount(){
+
 		window.matrix = this.matrix
 		//this listener will pick up on the paint color on the Box component, placing it on the 
 		//matrix: Array(2000) at the top of this component for its fill color
@@ -51,9 +52,13 @@ const DrawingView = React.createClass({
 			})
 		})
 
+		Backbone.Events.trigger('resetCanvas')
+
+
 	},
 
 	componentWillUnmount: function(){
+
 		Backbone.Events.off('paint')
 		Backbone.Events.off('modifyAppState')
 		Backbone.Events.off('resetCanvas')
@@ -157,6 +162,10 @@ const Box = React.createClass({
 			fill: 'white'
 		}
 	},
+
+	componentWillMount: function() {
+		// React.initializeTouchEvents(true)
+	},
 	
 	componentWillReceiveProps: function(newProps){
 		if (newProps.wasCleared){
@@ -171,6 +180,14 @@ const Box = React.createClass({
 		// 	})
 		// }
 		
+	},
+
+	_detectMobile: function(){
+		if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+			return true
+		} else {
+			return false
+		}
 	},
 
 	_colorBox: function() {
@@ -190,10 +207,9 @@ const Box = React.createClass({
 		let styleObj = {
 			background: this.state.fill
 		}
-		return (
-			<div style={styleObj} className="box" onMouseEnter={this._colorBox} >
-			</div>
-			)
+		let div = this._detectMobile() ? <div style={styleObj} className="box" onTouch={()=>alert('touchytouchy!')} onTouchMove={this._colorBox} ></div> : <div style={styleObj} className="box" onMouseEnter={this._colorBox}></div>
+		return div
+		
 	}
 })
 

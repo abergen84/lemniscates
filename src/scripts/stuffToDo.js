@@ -1,8 +1,11 @@
 //TO DO
 
+//determine if on mobile or not to activate onMouseEnter or onTouchEnter
+
 //create array of random themes
 
 //able to save PDF of drawing
+
 
 
 // SOMEWHAT FIXED

@@ -238,8 +238,8 @@ header {
 	border-right: 1px solid black;
 	border-bottom: 1px solid black;
 	.row {
+	
 	}
-
 	.box {
 		display: inline-block;
 		height: 10px;
@@ -326,6 +326,11 @@ header {
 #dateListings {
 	width: 50%;
 	margin: 0 auto;
+	h2 {
+		text-align: center;
+		font-family: $headerfont;
+		color: $citrus;
+	}
 	.dateListing {
 		background: rgba(10,197,244,0.8);
 		padding: 10px 0;
@@ -334,6 +339,9 @@ header {
 		position: relative;
 		&:hover {
 			background: $apple;
+		}
+		&:first-of-type {
+			border: 10px solid $citrus;
 		}
 		h3 {
 			text-align: center;
@@ -403,6 +411,16 @@ header {
 			bottom: 10px;
 			margin-bottom: 0;
 			color: $citrus;	
+		}
+	}
+}
+@media (max-width: 501px) {
+	#canvas {
+		width: 100%;
+
+		.box {
+			width: 2%;
+			height: 2%;
 		}
 	}
 }
