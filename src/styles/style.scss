@@ -181,9 +181,13 @@ header {
 			margin-left: 15px;
 		}
 		form {
-			margin: 15px auto 15px;
+			margin: 0 auto 15px;
 			background: rgba(247,195,49,0.8);
 			width: 40%;
+			p {
+				margin: 20px 0 0;
+				padding-top: 10px;
+			}
 			textarea {
 				font-size: 18px;
 				color: black;

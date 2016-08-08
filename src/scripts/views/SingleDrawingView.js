@@ -153,8 +153,8 @@ const UserInteraction = React.createClass({
 				<button onClick={this._handleLike} >{likeButton}</button>
 				<span>{this.props.drawingModel.get('likes').length}</span>
 				<button id="remove" onClick={this._handleDelete} style={buttonStyle} >Delete Drawing</button>
-				<p>Leave a comment</p>
 				<form onSubmit={this._handleComments}>
+					<p>Leave a comment</p>
 					<textarea type="text" name="comment" placeholder="comment" />
 					<button type="submit">say it</button>
 				</form>
