@@ -5,6 +5,7 @@ import ACTIONS from '../actions.js'
 import Header from './Header.js'
 import {DrawingModel} from '../models/models.js'
 import $ from 'jquery'
+import toastr from 'toastr'
 
 
 const DrawingView = React.createClass({
@@ -284,7 +285,6 @@ const SaveFeature = React.createClass({
 			onrendered: function(canvas){
 				var imgData = ''
 				imgData = canvas.toDataURL("image/jpeg", 0.1)
-				// console.log(imgData)
 
 				ACTIONS.saveDrawing({
 				title: self.storedTitle,
@@ -294,16 +294,8 @@ const SaveFeature = React.createClass({
 				imageUrl: imgData
 				})
 			},
-			// logging: true
 		})
-
-			// ACTIONS.saveDrawing({
-			// title: e.currentTarget.title.value,
-			// boxValues: this.props.matrix,
-			// user_email: User.getCurrentUser().email,
-			// name: User.getCurrentUser().name,
-			// imageUrl: imgData
-			// })
+			toastr.success('Drawing submitted!')
 	},
 
 	render: function(){

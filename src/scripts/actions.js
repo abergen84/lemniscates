@@ -23,12 +23,12 @@ const ACTIONS = {
 			if(responseData === undefined) {
 				toastr.warning('please input correct username and password')	
 			} else {
-				toastr.info(`user ${email} logged in!`)
+				toastr.success(`user ${email} logged in!`)
 				location.hash = "home"
 			}
 		}, function(error){
 			console.log(error)
-			toastr.info("error logging in.")
+			toastr.warning("error logging in.")
 		})
 	},
 

@@ -100,6 +100,7 @@ const Register = React.createClass({
 			<div className="register credentials">
 			<h3 onClick={this._toggleDisplay} >Register</h3>
 				<form onSubmit={this._handleRegister} style={styleObj} >
+					<h4>It's free and easy! Sign up below.</h4>
 					<input type="text" name="username" placeholder="Enter username" />
 					<input type="text" name="email" placeholder="Enter e-mail" />
 					<input type="password" name="password" placeholder="Enter password" />

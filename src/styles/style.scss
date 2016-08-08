@@ -110,6 +110,15 @@ header {
 	}
 }
 
+#dashboardView {
+	#dashboardTitle {
+		font-size: 50px;
+		font-family: $headerfont;
+		text-align: center;
+		color: $citrus;
+	}
+}
+
 #dashboard {
 	background: $apple;
 	width: 50%;
@@ -322,15 +331,14 @@ header {
 }
 
 #profileView {
-	width: 50%;
-	margin: 0 auto;
 	h1 {
 		text-align: center;
 	}
 	.singleDrawing {
 		background: rgba(10,197,244,0.8);
+		width: 50%;
 		padding: 10px 0;
-		margin: 20px 0;
+		margin: 20px auto;
 		transition: all .5s ease;
 		&:hover {
 			background: $apple;

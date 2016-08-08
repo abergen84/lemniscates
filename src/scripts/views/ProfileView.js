@@ -69,8 +69,8 @@ const Drawing = React.createClass({
 
 	render(){
 		return (
-			<div className="singleDrawing">
-				<h3 onClick={this._handleClick} >{this.props.yourDrawingModel.get('title')}</h3>
+			<div onClick={this._handleClick} className="singleDrawing">
+				<h3>{this.props.yourDrawingModel.get('title')}</h3>
 				<img src={this.props.yourDrawingModel.get('imageUrl')} />
 			</div>
 			)

@@ -30,6 +30,7 @@ const DashboardView = React.createClass({
 		return (
 			<div id="dashboardView">
 				<Header />
+				<h1 id="dashboardTitle">lemniscates</h1>
 				<Dashboard />
 				<DrawingListing drawingCollection={this.state.drawingCollection} />
 			</div>
