@@ -22,9 +22,10 @@ const DashboardView = React.createClass({
 		var formattedEndDate = tomorrow.format("YYYY-M-D")
 		console.log(formattedEndDate)
 
-		ACTIONS.fetchDrawings({
-			'_QRY_dateRange-date': [ formattedStartDate,  formattedEndDate ]
-		})
+		ACTIONS.fetchDrawings()
+		// {
+		// 			'_QRY_dateRange-date': [ formattedStartDate,  formattedEndDate ]
+		// 		}
 		STORE.on('updateContent', ()=> {
 			this.setState(
 			STORE.getData()
@@ -34,6 +35,7 @@ const DashboardView = React.createClass({
 
 	componentWillUnmount: function(){
 		STORE.off('updateContent')
+		ACTIONS.clearDrawingCollection()
 	},
 
 	render: function(){
@@ -56,9 +58,9 @@ const Dashboard = React.createClass({
 		return formattedDate
 	},
 
-	_getTheme: function(){
-		return ACTIONS.getTheme(THEMES)
-	},
+	// _getTheme: function(){
+	// 	return ACTIONS.getTheme(THEMES)
+	// },
 
 	render: function(){
 		let loginName
@@ -69,7 +71,6 @@ const Dashboard = React.createClass({
 			<div id="dashboard">
 					<p>{loginName}</p>
 					<h3>Today's date: {this._getDate()}</h3>
-					<h3>Today's theme: {this._getTheme()}</h3>
 					<a href="#profile">Your profile</a>
 					<a href="#drawing/create">Draw something!</a> 
 					<a href="#drawing/archive">View past winners</a>

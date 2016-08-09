@@ -124,6 +124,10 @@ header {
 	width: 50%;
 	margin: 10% auto 0;
 	padding: 20px;
+	@media screen and (max-width:800px){
+		width: 90%;
+		margin: 5% auto 0;
+	}
 	h3 {
 		color: $citrus;
 		text-align: center;
@@ -252,6 +256,9 @@ header {
 #drawingListing {
 	width: 50%;
 	margin: 0 auto;
+	@media screen and (max-width:800px) {
+		width: 90%;
+	}
 	h1 {
 		text-align: center;
 		margin-top: 40px;
@@ -326,6 +333,9 @@ header {
 #dateListings {
 	width: 50%;
 	margin: 0 auto;
+	@media screen and (max-width:800px){
+		width: 90%;
+	}
 	h2 {
 		text-align: center;
 		font-family: $headerfont;
@@ -383,6 +393,9 @@ header {
 		margin: 20px auto;
 		transition: all .5s ease;
 		position: relative;
+		@media screen and (max-width:800px) {
+			width: 90%;
+		}
 		&:hover {
 			background: $apple;
 		}

@@ -77,6 +77,10 @@ const ACTIONS = {
 		// console.log(STORE.data.drawingModel.defaults)
 	},
 
+	clearDrawingCollection: function(){
+		STORE.data.drawingCollection.reset()
+	},
+
 	addLike: function(drawing, user){
 		console.log('this is adding like')
 		console.log(drawing)
@@ -111,10 +115,10 @@ const ACTIONS = {
 		})
 	},
 
-	getTheme: function(themes){
-		console.log('theme generator', themes[Math.floor(Math.random() * themes.length)])	
-		return themes[Math.floor(Math.random() * themes.length)]
-	},
+	// getTheme: function(themes){
+	// 	console.log('theme generator', themes[Math.floor(Math.random() * themes.length)])	
+	// 	return themes[Math.floor(Math.random() * themes.length)]
+	// },
 
 
 
