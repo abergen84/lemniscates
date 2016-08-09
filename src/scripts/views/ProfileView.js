@@ -23,6 +23,7 @@ const ProfileView = React.createClass({
 	componentWillUnmount(){
 		STORE.off('updateContent')
 		ACTIONS.clearDrawingModel()
+		ACTIONS.clearDrawingCollection()
 	},
 
 	render(){
