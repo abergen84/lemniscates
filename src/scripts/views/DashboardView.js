@@ -107,7 +107,9 @@ const Drawing = React.createClass({
 				<h3>{this.props.drawModel.get('title')}</h3>
 				<img src={this.props.drawModel.get('imageUrl')} />
 				<h4>artist: {this.props.drawModel.get('name')}</h4>
+				<h4 className="submitted">submitted: {this.props.drawModel.get('date').substr(0,10)}</h4>
 				<p>Likes: {this.props.drawModel.get('likes').length}</p>
+				<p className="comments">Comments: {this.props.drawModel.get('comment').length}</p>
 			</div>
 			)
 	}

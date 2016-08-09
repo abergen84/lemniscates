@@ -112,7 +112,9 @@ const DateListing = React.createClass({
 				<h3>{this.props.model.get('title')}</h3>
 				<img src={this.props.model.get('imageUrl')} />
 				<h4>artist: {this.props.model.get('name')}</h4>
+				<h4 className="submitted">submitted: {this.props.model.get('date').substr(0,10)}</h4>
 				<p>Likes: {this.props.model.get('likes').length}</p>
+				<p className="comments">Comments: {this.props.model.get('comment').length}</p>
 			</div>
 			)
 	}

@@ -287,14 +287,28 @@ header {
 		p {
 			position: absolute;
 			right: 10px;
+			bottom: 30px;
+			margin-bottom: 0;
+			color: $citrus;
+		}
+		.comments {
+			position: absolute;
+			right: 10px;
 			bottom: 10px;
 			margin-bottom: 0;
 			color: $citrus;
 		}
-		h4 {
+		.submitted {
 			position: absolute;
 			left: 10px;
 			bottom: 10px;
+			margin-bottom: 0;
+			color: $citrus;	
+		}
+		h4 {
+			position: absolute;
+			left: 10px;
+			bottom: 30px;
 			margin-bottom: 0;
 			color: $citrus;	
 		}
@@ -368,14 +382,28 @@ header {
 		p {
 			position: absolute;
 			right: 10px;
+			bottom: 30px;
+			margin-bottom: 0;
+			color: $citrus;
+		}
+		.comments {
+			position: absolute;
+			right: 10px;
 			bottom: 10px;
 			margin-bottom: 0;
 			color: $citrus;
 		}
-		h4 {
+		.submitted {
 			position: absolute;
 			left: 10px;
 			bottom: 10px;
+			margin-bottom: 0;
+			color: $citrus;	
+		}
+		h4 {
+			position: absolute;
+			left: 10px;
+			bottom: 30px;
 			margin-bottom: 0;
 			color: $citrus;	
 		}
@@ -411,17 +439,31 @@ header {
 			margin: 0 auto;
 			display: block;
 		}
-		p {
+		.comments {
 			position: absolute;
 			right: 10px;
 			bottom: 10px;
 			margin-bottom: 0;
 			color: $citrus;
 		}
-		h4 {
+		.submitted {
 			position: absolute;
 			left: 10px;
 			bottom: 10px;
+			margin-bottom: 0;
+			color: $citrus;	
+		}
+		p {
+			position: absolute;
+			right: 10px;
+			bottom: 30px;
+			margin-bottom: 0;
+			color: $citrus;
+		}
+		h4 {
+			position: absolute;
+			left: 10px;
+			bottom: 30px;
 			margin-bottom: 0;
 			color: $citrus;	
 		}
