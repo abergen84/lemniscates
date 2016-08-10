@@ -30,6 +30,7 @@ body {
 	url('../images/crayons.jpeg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	background-size: cover;
 	margin: 0;
 }
 
@@ -48,6 +49,7 @@ header {
 		text-align: center;
 		background: rgba(0,0,0,0.4);
 		padding: 10px 0;
+		width: 100%;
 		a {
 			text-decoration: none;
 			padding: 10px;
@@ -81,6 +83,9 @@ header {
 		display: block;
 		padding: 20px 0;
 		background: $apple;
+		@media screen and (max-width:800px){
+			width: 80%;
+		}
 		h3 {
 			margin-top: 0;
 			transition: all .5s ease;
@@ -151,6 +156,9 @@ header {
 		transition: all .5s ease;
 		&:hover {
 			background: $citrus;
+		}
+		@media screen and (max-width:800px) {
+			width: 80%;
 		}
 	}
 }
@@ -283,6 +291,9 @@ header {
 			width: 200px;
 			margin: 0 auto;
 			display: block;
+			@media screen and (max-width:800px){
+				margin-bottom: 50px;
+			}
 		}
 		p {
 			position: absolute;
@@ -378,6 +389,9 @@ header {
 			width: 200px;
 			margin: 0 auto;
 			display: block;
+			@media screen and (max-width:800px){
+				margin-bottom: 50px;
+			}
 		}
 		p {
 			position: absolute;
@@ -438,6 +452,9 @@ header {
 			width: 200px;
 			margin: 0 auto;
 			display: block;
+			@media screen and (max-width:800px){
+				margin-bottom: 50px;
+			}
 		}
 		.comments {
 			position: absolute;
@@ -476,8 +493,9 @@ header {
 	#canvas {
 		display: block;
 		margin: 10px auto 0;
-		width: 701px;
-		font-size: 0;
+		width: 401px;
+		display: none;
+		// font-size: 0;
 		// border-right: 1px solid black;
 		// border-bottom: 1px solid black;
 		.row {
@@ -485,11 +503,14 @@ header {
 		}
 		.box {
 			display: inline-block;
-			height: 14px;
-			width: 14px;
+			height: 8px;
+			width: 8px;
 			cursor: pointer;
 			// border: 1px solid red;
 			// border-width: 1px 0 0 1px;
 		}
+	}
+	#toolbox {
+		display: none;
 	}
 }
