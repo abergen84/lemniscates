@@ -469,13 +469,27 @@ header {
 		}
 	}
 }
-// @media (max-width: 501px) {
-// 	#canvas {
-// 		width: 100%;
-
-// 		.box {
-// 			width: 2%;
-// 			height: 2%;
-// 		}
-// 	}
-// }
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+	#canvas {
+		display: block;
+		margin: 10px auto 0;
+		width: 701px;
+		font-size: 0;
+		// border-right: 1px solid black;
+		// border-bottom: 1px solid black;
+		.row {
+		
+		}
+		.box {
+			display: inline-block;
+			height: 14px;
+			width: 14px;
+			cursor: pointer;
+			// border: 1px solid red;
+			// border-width: 1px 0 0 1px;
+		}
+	}
+}

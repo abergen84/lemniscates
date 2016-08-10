@@ -183,11 +183,26 @@ const Box = React.createClass({
 	},
 
 	_detectMobile: function(){
-		if(window.innerWidth <= 800 && window.innerHeight <= 600) {
-			return true
-		} else {
-			return false
-		}
+		
+	if(navigator.userAgent.match(/Android/i)
+	 || navigator.userAgent.match(/webOS/i)
+	 || navigator.userAgent.match(/iPhone/i)
+	 || navigator.userAgent.match(/iPad/i)
+	 || navigator.userAgent.match(/iPod/i)
+	 || navigator.userAgent.match(/BlackBerry/i)
+	 || navigator.userAgent.match(/Windows Phone/i)){
+		return true
+	}
+	else {
+		return false
+	}
+
+
+		// if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+		// 	return true
+		// } else {
+		// 	return false
+		// }
 	},
 
 	_colorBox: function() {
@@ -207,7 +222,7 @@ const Box = React.createClass({
 		let styleObj = {
 			background: this.state.fill
 		}
-		let div = this._detectMobile() ? <div style={styleObj} className="box" onTouch={()=>alert('touchytouchy!')} onTouchMove={this._colorBox} ></div> : <div style={styleObj} className="box" onMouseEnter={this._colorBox}></div>
+		let div = this._detectMobile() ? <div style={styleObj} className="box" onTouchMove={this._colorBox} ></div> : <div style={styleObj} className="box" onMouseEnter={this._colorBox}></div>
 		return div
 		
 	}
@@ -237,16 +252,31 @@ const Toolbox = React.createClass({
 			<div id="paintbrush">
 				<span><p style={paintStyle}>{paintbrush}</p></span>
 			</div>
-			<button onClick={this._resetCanvas}>Reset Canvas</button>
-				{ ["#000000", //black 
-				"#26A65B", // green (Eucalyptus)
-				"#19B5FE", // blue (Dodger Blue)
-				"#F22613", // red (Pomegranate)
-				"#F9BF3B", // yellow (Saffron)
-				"#F9690E", // orange (Ectasy)
-				"#9A12B3", // purple (Seance)
-				"#BFBFBF", // silver (Silver)
-				"#FFFFFF"].map((colorVal,i)=>{return <PaletteColor bgColor={colorVal} active={colorVal === this.props.currentPaintingColor} key={i} />}) }
+			<button onClick={this._resetCanvas}>Reset</button>
+				{ 
+					[ "#000000", //black 
+					"#26A65B", // green (Eucalyptus)
+					"#AFE313", // lime (inchworm)
+					"#9DE093", // granny smith apple
+					"#19B5FE", // blue (Dodger Blue)
+					"#6CDAE7", // turquoise blue 
+					"#00468C", // midnight blue
+					"#F22613", // red (Pomegranate)
+					"#FE4C40", // sunset orange
+					"#F9BF3B", // yellow (Saffron)
+					"#FAFA37", // maxiumum yellow
+					"#F9690E", // orange (Ectasy)
+					"#9A12B3", // purple (Seance)
+					"#FC74FD", // pink flamingo
+					"#FF3399", // wild strawberry
+					"#BFBFBF", // silver (Silver)
+					"#87421F", // fuzzy wuzzy 
+					"#FFCBA4", // peach
+					"#DA8A67", // copper
+					"#FFFFFF"].map((colorVal,i)=>{return <PaletteColor bgColor={colorVal} 
+						active={colorVal === this.props.currentPaintingColor} 
+						key={i} />}) 
+				}
 			</div>
 			)
 	}
@@ -278,7 +308,7 @@ const PaletteColor = React.createClass({
 			background: this.props.bgColor
 		}
 		return (
-			<span ref="color" onClick={this._changeColor} 
+			<span onClick={this._changeColor} 
 			data-colorval={this.props.bgColor} 
 			style={palletteStyle}></span>
 			)
