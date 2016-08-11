@@ -194,8 +194,11 @@ header {
 		}
 		form {
 			margin: 0 auto 15px;
-			background: rgba(247,195,49,0.8);
-			width: 40%;
+			background: $citrus;
+			width: 500px;
+			@media screen and (max-width:500px) {
+				width: 80%;
+			}
 			p {
 				margin: 20px 0 0;
 				padding-top: 10px;
@@ -209,6 +212,9 @@ header {
 			button {
 				margin: 30px 0 0 10px;
 				vertical-align: top;
+				@media screen and (max-width:500px){
+					margin: 0px 0px 10px 0px
+				}
 			}
 		}
 		#remove {
@@ -264,6 +270,9 @@ header {
 #drawingListing {
 	width: 50%;
 	margin: 0 auto;
+	@media screen and (max-width:1000px) {
+		width: 70%;
+	}
 	@media screen and (max-width:800px) {
 		width: 90%;
 	}
@@ -358,6 +367,9 @@ header {
 #dateListings {
 	width: 50%;
 	margin: 0 auto;
+	@media screen and (max-width:1000px) {
+		width: 70%;
+	}
 	@media screen and (max-width:800px){
 		width: 90%;
 	}
@@ -435,6 +447,9 @@ header {
 		margin: 20px auto;
 		transition: all .5s ease;
 		position: relative;
+		@media screen and (max-width:1000px) {
+			width: 70%;
+		}
 		@media screen and (max-width:800px) {
 			width: 90%;
 		}
